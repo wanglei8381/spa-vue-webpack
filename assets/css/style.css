@@ -1,0 +1,77 @@
+/**
+ *
+ *
+ *
+ */
+body{
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    font-size: 1em;
+}
+
+.article-play{
+    background: url("../img/play.png");
+}
+.wh{
+    width:2.5em;
+    height: 2.5em;
+}
+
+/*background*/
+.logo-img{
+    background: url("../img/logo.jpg");
+    width:1.5em;
+    height:1.5em;
+    border: 2px solid #000000;
+}
+.article-img{
+    background: url("../img/logo.jpg");
+    width:23.5em;
+    height: 23.5em;
+}
+.hot-img{
+    background: url("../img/logo.jpg");
+    width:7em;
+    height: 7em;
+}
+.bgColor{
+    background: #95A5A6;
+}
+/*font*/
+.fontColor{
+    color: #9c9c9c;
+}
+.fontSize1{
+    font-size: .8em;
+}
+/*position*/
+.footer{
+    position: fixed !important;
+    bottom: 0px;
+    width: 100%;
+}
+.paddA{
+    padding: .5em;
+}
+.paddA1{
+    padding: .5em 1em;
+}
+.paddL{
+    padding-left: .5em;
+}
+.marginT{
+    margin-top: .3em;
+}
+.borderR{
+    border-radius: 50%;
+}
+.borderR1{
+    border-radius: 10%;
+}
+.borderA{
+    border:1px solid yellow;
+}
+.borderT{
+    border-top: 1px solid #000000;
+}
