@@ -1,5 +1,6 @@
 var Vue = require('vue');
 var VueRouter = require('vue-router');
+require('../assets/js/common.js');
 
 // 安装路由模块
 Vue.use(VueRouter);
@@ -10,9 +11,9 @@ var router = new VueRouter({
 });
 
 router.map({
-    '/news': {
+    '/topic': {
         component: function (resolve) {
-            require(['./views/news'], resolve);
+            require(['./views/topic'], resolve);
         }
     },
     '/note': {

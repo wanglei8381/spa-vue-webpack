@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{msg}}</title>
+</head>
+<body>
+
+<my/>
+<script src="//cdn.bootcss.com/vue/1.0.24/vue.min.js"></script>
+
+<script>
+    var my = Vue.extend({
+        template: '<h1>Hello {{msg}}</h1>',
+        data: function(){
+            return {
+                msg: 'LSII'
+            }
+        }
+    });
+    Vue.component('my', my);
+    new Vue({
+        el: 'html',
+        data: {
+            msg: 'world'
+        }
+    });
+</script>
+</body>
+</html>
