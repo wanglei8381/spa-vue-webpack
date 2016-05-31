@@ -1,377 +1,149 @@
-webpackJsonp([2,4],[
-/* 0 */,
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */
-/***/ function(module, exports) {
+webpackJsonp([2,6],{
 
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	module.exports = function () {
-		var list = [];
-	
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for (var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if (item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-	
-		// import a list of modules into the list
-		list.i = function (modules, mediaQuery) {
-			if (typeof modules === "string") modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for (var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if (typeof id === "number") alreadyImportedModules[id] = true;
-			}
-			for (i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if (mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if (mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
-	};
-
-/***/ },
-/* 8 */
+/***/ 6:
 /***/ function(module, exports, __webpack_require__) {
 
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	var stylesInDom = {},
-		memoize = function(fn) {
-			var memo;
-			return function () {
-				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-				return memo;
-			};
-		},
-		isOldIE = memoize(function() {
-			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
-		}),
-		getHeadElement = memoize(function () {
-			return document.head || document.getElementsByTagName("head")[0];
-		}),
-		singletonElement = null,
-		singletonCounter = 0,
-		styleElementsInsertedAtTop = [];
-	
-	module.exports = function(list, options) {
-		if(false) {
-			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-		}
-	
-		options = options || {};
-		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-		// tags it will allow on a page
-		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-	
-		// By default, add <style> tags to the bottom of <head>.
-		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
-	
-		var styles = listToStyles(list);
-		addStylesToDom(styles, options);
-	
-		return function update(newList) {
-			var mayRemove = [];
-			for(var i = 0; i < styles.length; i++) {
-				var item = styles[i];
-				var domStyle = stylesInDom[item.id];
-				domStyle.refs--;
-				mayRemove.push(domStyle);
-			}
-			if(newList) {
-				var newStyles = listToStyles(newList);
-				addStylesToDom(newStyles, options);
-			}
-			for(var i = 0; i < mayRemove.length; i++) {
-				var domStyle = mayRemove[i];
-				if(domStyle.refs === 0) {
-					for(var j = 0; j < domStyle.parts.length; j++)
-						domStyle.parts[j]();
-					delete stylesInDom[domStyle.id];
-				}
-			}
-		};
-	}
-	
-	function addStylesToDom(styles, options) {
-		for(var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-			if(domStyle) {
-				domStyle.refs++;
-				for(var j = 0; j < domStyle.parts.length; j++) {
-					domStyle.parts[j](item.parts[j]);
-				}
-				for(; j < item.parts.length; j++) {
-					domStyle.parts.push(addStyle(item.parts[j], options));
-				}
-			} else {
-				var parts = [];
-				for(var j = 0; j < item.parts.length; j++) {
-					parts.push(addStyle(item.parts[j], options));
-				}
-				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-			}
-		}
-	}
-	
-	function listToStyles(list) {
-		var styles = [];
-		var newStyles = {};
-		for(var i = 0; i < list.length; i++) {
-			var item = list[i];
-			var id = item[0];
-			var css = item[1];
-			var media = item[2];
-			var sourceMap = item[3];
-			var part = {css: css, media: media, sourceMap: sourceMap};
-			if(!newStyles[id])
-				styles.push(newStyles[id] = {id: id, parts: [part]});
-			else
-				newStyles[id].parts.push(part);
-		}
-		return styles;
-	}
-	
-	function insertStyleElement(options, styleElement) {
-		var head = getHeadElement();
-		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
-		if (options.insertAt === "top") {
-			if(!lastStyleElementInsertedAtTop) {
-				head.insertBefore(styleElement, head.firstChild);
-			} else if(lastStyleElementInsertedAtTop.nextSibling) {
-				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
-			} else {
-				head.appendChild(styleElement);
-			}
-			styleElementsInsertedAtTop.push(styleElement);
-		} else if (options.insertAt === "bottom") {
-			head.appendChild(styleElement);
-		} else {
-			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-		}
-	}
-	
-	function removeStyleElement(styleElement) {
-		styleElement.parentNode.removeChild(styleElement);
-		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
-		if(idx >= 0) {
-			styleElementsInsertedAtTop.splice(idx, 1);
-		}
-	}
-	
-	function createStyleElement(options) {
-		var styleElement = document.createElement("style");
-		styleElement.type = "text/css";
-		insertStyleElement(options, styleElement);
-		return styleElement;
-	}
-	
-	function createLinkElement(options) {
-		var linkElement = document.createElement("link");
-		linkElement.rel = "stylesheet";
-		insertStyleElement(options, linkElement);
-		return linkElement;
-	}
-	
-	function addStyle(obj, options) {
-		var styleElement, update, remove;
-	
-		if (options.singleton) {
-			var styleIndex = singletonCounter++;
-			styleElement = singletonElement || (singletonElement = createStyleElement(options));
-			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
-			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
-		} else if(obj.sourceMap &&
-			typeof URL === "function" &&
-			typeof URL.createObjectURL === "function" &&
-			typeof URL.revokeObjectURL === "function" &&
-			typeof Blob === "function" &&
-			typeof btoa === "function") {
-			styleElement = createLinkElement(options);
-			update = updateLink.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-				if(styleElement.href)
-					URL.revokeObjectURL(styleElement.href);
-			};
-		} else {
-			styleElement = createStyleElement(options);
-			update = applyToTag.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-			};
-		}
-	
-		update(obj);
-	
-		return function updateStyle(newObj) {
-			if(newObj) {
-				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
-					return;
-				update(obj = newObj);
-			} else {
-				remove();
-			}
-		};
-	}
-	
-	var replaceText = (function () {
-		var textStore = [];
-	
-		return function (index, replacement) {
-			textStore[index] = replacement;
-			return textStore.filter(Boolean).join('\n');
-		};
-	})();
-	
-	function applyToSingletonTag(styleElement, index, remove, obj) {
-		var css = remove ? "" : obj.css;
-	
-		if (styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = replaceText(index, css);
-		} else {
-			var cssNode = document.createTextNode(css);
-			var childNodes = styleElement.childNodes;
-			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
-			if (childNodes.length) {
-				styleElement.insertBefore(cssNode, childNodes[index]);
-			} else {
-				styleElement.appendChild(cssNode);
-			}
-		}
-	}
-	
-	function applyToTag(styleElement, obj) {
-		var css = obj.css;
-		var media = obj.media;
-	
-		if(media) {
-			styleElement.setAttribute("media", media)
-		}
-	
-		if(styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = css;
-		} else {
-			while(styleElement.firstChild) {
-				styleElement.removeChild(styleElement.firstChild);
-			}
-			styleElement.appendChild(document.createTextNode(css));
-		}
-	}
-	
-	function updateLink(linkElement, obj) {
-		var css = obj.css;
-		var sourceMap = obj.sourceMap;
-	
-		if(sourceMap) {
-			// http://stackoverflow.com/a/26603875
-			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-		}
-	
-		var blob = new Blob([css], { type: "text/css" });
-	
-		var oldSrc = linkElement.href;
-	
-		linkElement.href = URL.createObjectURL(blob);
-	
-		if(oldSrc)
-			URL.revokeObjectURL(oldSrc);
-	}
-
-
-/***/ },
-/* 9 */,
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(11);
 	
 	module.exports = {
-	    template: __webpack_require__(13),
+	    template: __webpack_require__(7),
 	    data: function () {
 	        return {
 	            msg: 'This is page Note.'
 	        };
 	    }
 	};
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
-	// load the styles
-	var content = __webpack_require__(12);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(8)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./style.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
+	var isplay = 0;
+	$(function () {
+	    $(window).scroll(function () {
+	        var a = document.body.scrollTop;
+	        if (a > 300) {
+	            $('.fixedPlay').removeClass('uhide');
+	            playStatus();
+	        } else {
+	            $('.fixedPlay').addClass('uhide');
+	            playStatus();
+	        }
+	    });
+	});
+	
+	function playStatus() {
+	    if (isplay == 1) {
+	        $('.musicTop').addClass('playAnimation');
+	        $('.musicTop').css('animation-play-state', 'running');
+	        $('.radioPlay').addClass('radioPlayF');
+	        $('.radioPlay').removeClass('radioPlayT');
+	        $('.fiexedPlay').addClass('fixedPauseIcon');
+	        $('.fiexedPlay').removeClass('fixedPlayIcon');
+	    } else {
+	        $('.musicTop').css('animation-play-state', 'paused');
+	        $('.radioPlay').removeClass('radioPlayF');
+	        $('.radioPlay').addClass('radioPlayT');
+	        $('.fiexedPlay').removeClass('fixedPauseIcon');
+	        $('.fiexedPlay').addClass('fixedPlayIcon');
+	    }
+	}
+	
+	//请求接口,获取音乐详情信息
+	/*var id = '5746a27e02334de948e8e74a';
+	 R.ajax({
+	 url: 'music/info.php',
+	 data: {
+	 contentid: id
+	 },
+	 success: function (data) {
+	 showMusicInfo(data)
+	 }
+	 });*/
+	showMusicInfo();
+	function showMusicInfo() {
+	    $('.titleM').html(musicData.title);
+	    $('.musicTitleText').html(musicData.title);
+	    $('.musicUser').html(musicData.userinfo.uname);
+	    $('.musicContent').html(musicData.text);
+	    contentCols($('.musicContent'), 5);
+	    var songId = musicData.songid;
+	    $('#audiosrc').attr('src', 'http://mhp.sturgeon.mopaas.com/resolve/xm.php?id=' + songId);
+	    playCotrol(); //播放控制函数
+	}
+	
+	function playCotrol() {
+	    var audio = document.getElementById("audiosrc");
+	    audio.addEventListener("loadeddata", //歌曲一经完整的加载完毕()
+	    function () {
+	        var allTime = audio.duration;
+	        timeChange(allTime, "musicTime");
+	        setInterval(function () {
+	            var currentTime = audio.currentTime;
+	            timeChange(currentTime, "musicPlayTimesC");
+	        }, 1000);
+	    }, false);
+	    audio.addEventListener("ended", function () {
+	        $('.radioPlay').removeClass('radioPlayF');
+	        $('.radioPlay').addClass('radioPlayT');
+	    }, false);
+	
+	    $('.radioPlay').click(function () {
+	        if (isplay == 1) {
+	            //停止旋转,停止播放
+	            audiosrc.pause();
+	            $('.musicTop').css('animation-play-state', 'paused');
+	            isplay = 0;
+	            $('.radioPlay').removeClass('radioPlayF');
+	            $('.radioPlay').addClass('radioPlayT');
+	        } else {
+	            //旋转,播放
+	            audiosrc.play();
+	            $('.musicTop').css('animation-play-state', 'running');
+	            $('.musicTop').addClass('playAnimation');
+	            isplay = 1;
+	            $('.radioPlay').addClass('radioPlayF');
+	            $('.radioPlay').removeClass('radioPlayT');
+	        }
+	    });
+	    $('.fiexedPlay').click(function () {
+	        if (isplay == 1) {
+	            //停止旋转,停止播放
+	            audiosrc.pause();
+	            isplay = 0;
+	            $('.fiexedPlay').removeClass('fixedPauseIcon');
+	            $('.fiexedPlay').addClass('fixedPlayIcon');
+	        } else {
+	            //旋转,播放
+	            audiosrc.play();
+	            isplay = 1;
+	            $('.fiexedPlay').addClass('fixedPauseIcon');
+	            $('.fiexedPlay').removeClass('fixedPlayIcon');
+	        }
+	    });
+	}
+	
+	//播放时间
+	function timeChange(time, timePlace) {
+	    //分钟
+	    var minute = time / 60;
+	    var minutes = parseInt(minute);
+	    if (minutes < 10) {
+	        minutes = "0" + minutes;
+	    }
+	    //秒
+	    var second = time % 60;
+	    seconds = parseInt(second);
+	    if (seconds < 10) {
+	        seconds = "0" + seconds;
+	    }
+	    var allTime = "" + minutes + "" + " : " + "" + seconds + "";
+	    $('.' + timePlace).html(allTime);
 	}
 
 /***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(7)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "h2 {\r\n    font-size: 20px;\r\n    font-family: \"Microsort YaHei\", \"\\5FAE\\8F6F\\96C5\\9ED1\";\r\n}\r\n\r\n.u-login {\r\n    margin: 10px;\r\n    padding: 10px;\r\n}\r\n\r\n.u-sign-up {\r\n    width: 100px;\r\n}", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 13 */
+/***/ 7:
 /***/ function(module, exports) {
 
-	module.exports = "<h2>{{msg}}</h2>\r\n<br>\r\n<a v-link=\"{ path: 'news' }\"> --->news </a>";
+	module.exports = "<!--music start-->\r\n<audio id=\"audiosrc\" class=\"uhide\" src=\"\" controls=\"controls\">\r\n    Your browser does not support the audio element.\r\n</audio>\r\n\r\n<!--页面上滑到一定高度后显示播放效果-->\r\n<div class=\"fixedPlay ub ub-ac ub-pc uhide\">\r\n    <div class=\"ub-f1 ub-ver fixedTitle\">\r\n        <div class=\"ub-f1 titleM\">白兰鸽巡游记-丢火车</div>\r\n        <div class=\"ub-f1 fixedPlayTime\"><span class=\"musicPlayTimesC\">00 : 00</span> / <span\r\n                class=\"musicTime\">00 : 00</span></div>\r\n    </div>\r\n    <div class=\"ub-img fixedPlayIcon fiexedPlay\"></div>\r\n</div>\r\n\r\n<div class=\"ub ub-ver ub-ac ub-pc\">\r\n    <div class=\"musicTitle titleM\">Keep Talking (Radio Edit)</div>\r\n    <!--<div class=\"musicAuthor\">Pink Floyd</div>-->\r\n    <div class=\"musicPlayTime\"><span class=\"musicPlayTimesC\">00 : 00</span> / <span class=\"musicTime\">00 : 00</span>\r\n    </div>\r\n    <div class=\"ub musicTop ub-img ub-ac ub-pc\">\r\n        <!--<img src=\"img/music.png\" class=\"musicImgWH\" alt=\"\">-->\r\n    </div>\r\n    <div class=\"ub-img radioPlay radioPlayT\"></div>\r\n    <div class=\"musicPlayNumbers\">播放: <span>2080</span></div>\r\n</div>\r\n<div class=\"music\">\r\n    <div class=\"musicTitleText\"></div>\r\n    <div class=\"playTime\">by:&nbsp; <span class=\"musicUser\">Lioncatjune</span></div>\r\n    <hr class=\"musicHr\">\r\n    <div class=\"radioContent musicContent\">\r\n    </div>\r\n    <div class=\"more ub ub-ver ub-ac uhide\">\r\n        <div>查看全部</div>\r\n        <div class=\"ub-img moredown\"></div>\r\n    </div>\r\n</div>\r\n<!--music end-->\r\n\r\n<div class=\"commonSpace\"></div>\r\n\r\n<div class=\"appDown ub ub-ver ub-ac\">\r\n    <div class=\"ub-img appImage\"></div>\r\n    <div class=\"ub appText\">\r\n        <div>打开片刻APP</div>\r\n        <div class=\"appComma\">,</div>\r\n        <div>收听更多高质音乐</div>\r\n    </div>\r\n</div>\r\n";
 
 /***/ }
-]);
+
+});
 //# sourceMappingURL=2.build.js.map

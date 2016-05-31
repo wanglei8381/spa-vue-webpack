@@ -1,4 +1,4 @@
-webpackJsonp([0,4],[
+webpackJsonp([0,6],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -9,24 +9,33 @@ webpackJsonp([0,4],[
 	Vue.use(VueRouter);
 	
 	// 创建一个路由器实例
-	var router = new VueRouter({
-	    basePath: '/assets/img'
-	});
+	var router = new VueRouter({});
 	
 	router.map({
-	    '/news': {
+	    '/topic/:id': {
+	        name: 'topic',
 	        component: function (resolve) {
 	            __webpack_require__.e/* require */(1, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(4)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
 	        }
 	    },
-	    '/note': {
+	    '/music/:id': {
 	        component: function (resolve) {
-	            __webpack_require__.e/* require */(2, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(10)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
+	            __webpack_require__.e/* require */(2, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(6)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
 	        }
 	    },
-	    '/article': {
+	    '/article/:id': {
 	        component: function (resolve) {
-	            __webpack_require__.e/* require */(3, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(14)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
+	            __webpack_require__.e/* require */(3/* empty */, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(8)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
+	        }
+	    },
+	    '/radio/:id': {
+	        component: function (resolve) {
+	            __webpack_require__.e/* require */(4, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(10)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
+	        }
+	    },
+	    '/timeline/:id': {
+	        component: function (resolve) {
+	            __webpack_require__.e/* require */(5, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(12)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
 	        }
 	    }
 	});

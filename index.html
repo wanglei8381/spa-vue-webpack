@@ -10,7 +10,14 @@
     <link rel="stylesheet" href="assets/css/common.css">
 </head>
 <body>
+<ul>
+    <li><a v-link="{ path: '/article/12' }">文章</a></li>
+    <li><a v-link="{ path: '/music/12' }">音乐</a></li>
+    <li><a v-link="{ name: 'topic', params: { id: 123 }}">话题</a></li>
+</ul>
 <router-view></router-view>
+<script src="assets/js/zepto.min.js"></script>
+<script src="assets/js/common.js"></script>
 <script src="build/common.js"></script>
 <script src="build/build.js"></script>
 </body>

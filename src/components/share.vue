@@ -116,9 +116,13 @@
     function showHotArticle() {
         var str = '';
         for (var i = 0; i < 3; i++) {
-            str += '<div class="ub-f1 hotContent">' + articleArr[i].title + '</div>';
+            str += '<div class="ub-f1 hotContent hotArticle" id="'+ articleArr[i].id +'">' + articleArr[i].title + '</div>';
         }
         $('.articleList').html(str);
+        $('.hotArticle').click(function(){
+            console.log(this.id)
+            window.open('/article/'+ this.id);
+        })
     }
 
     //展示热门Ting
@@ -130,12 +134,16 @@
             if (title.length > 6) {
                 title = title.substring(0, 6) + '...'
             }
-            str += '<div class="ub-f1 ub-ver hotTing hotMarginLR">' +
+            str += '<div class="ub-f1 ub-ver hotTing hotMarginLR" id="'+ tingArr[i].id +'">' +
                     '<img src="' + tingArr[i].coverimg + '" alt="" width="100%">' +
                     '<div class="hotContentTing">' + title + '</div>' +
                     '</div>';
         }
         $('.tingList').html(str);
+        $('.hotTing').click(function(){
+            console.log(this.id)
+            window.open('/radio/'+ this.id);
+        })
 
     }
 
@@ -144,7 +152,7 @@
     function showHotTopic() {
         var str = '';
         for (var i = 0; i < 3; i++) {
-            str += '<div class="ub ub-ac hotCotentTopic hotMarginTB">' +
+            str += '<div class="ub ub-ac hotCotentTopic hotMarginTB hotTopicItem" id="'+ topicArr[i].id +'">' +
                     '<div class="ub">' +
                     '<img src="' + topicArr[i].coverimg + '" class="hotTopic" alt="">' +
                     '</div>' +
@@ -152,6 +160,10 @@
                     '</div>';
         }
         $('.topicList').html(str);
+        $('.hotTopicItem').click(function(){
+            console.log(this.id)
+            window.open('/topic/'+ this.id);
+        })
     }
 
     //展示热门音乐
@@ -159,7 +171,7 @@
     function showHotMusic() {
         var str = '';
         for (var i = 0; i < 3; i++) {
-            str += '<div class="ub ub-ac hotCotentTopic hotMarginMusicTB">' +
+            str += '<div class="ub ub-ac hotCotentTopic hotMusicItem hotMarginMusicTB" id="'+ musicArr[i].id +'">' +
                     '<div class="ub">' +
                     '<img src="img/hotMusic.png" class="hotMusic" alt="">' +
                     '</div>' +
@@ -168,6 +180,9 @@
                     '</div>';
         }
         $('.musicList').html(str);
+        $('.hotMusicItem').click(function(){
+            console.log(this.id)
+            window.open('/music/'+ this.id);
+        })
     }
-
 </script>

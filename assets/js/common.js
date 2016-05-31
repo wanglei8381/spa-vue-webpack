@@ -1,19 +1,25 @@
 //设置一个全局变量
 var serverUrl = 'http://api.pianke.me/version4.0/';
-var d = new Date();
-var timestamp = d.getFullYear() + '' + dateForm(d.getMonth() + 1) + d.getDate() + '' + d.getHours() + '' + d.getMinutes() + '' + d.getSeconds();
-var Authorization = $.base64.encode('0:' + timestamp);
-console.log(Authorization)
-console.log(timestamp)
-var sign = $.md5('0' + timestamp).toUpperCase();
-var headers = {
-    'Authorization': Authorization
-}
+
+
+
+
 var R = {
     dataUrl: function (url) {
         return serverUrl + url + "?sig=" + sign;
     },
     ajax: function (options) {
+
+        var d = new Date();
+        var timestamp = d.getFullYear() + '' + dateForm(d.getMonth() + 1) + d.getDate() + '' + d.getHours() + '' + d.getMinutes() + '' + d.getSeconds();
+        var Authorization = $.base64.encode('0:' + timestamp);
+        console.log(Authorization)
+        console.log(timestamp)
+        var sign = $.md5('0' + timestamp).toUpperCase();
+        var headers = {
+            'Authorization': Authorization
+        }
+
         options.type = options.type || 'post';
         options.dataType = options.dataType || 'json';
         options.headers = headers;
@@ -44,13 +50,13 @@ function dateForm(date) {
     }
 }
 
-function topicCols(data){
-    data  = data.substring(data.indexOf('<p'), data.lastIndexOf('</p>') + 4);
+function topicCols(data) {
+    data = data.substring(data.indexOf('<p'), data.lastIndexOf('</p>') + 4);
     data = data.replace(/[\s\n]+/g, ' ');
     var cols = data.split(/<br\s*\/*>/);
     var shortHtml = data;
-    if(cols.length > 5){
-        shortHtml = cols[0] +'<br />'+ cols[1] +'<br />'+ cols[2] + '<br />'+ cols[3] + '<br />'+ cols[4] + '</p>';
+    if (cols.length > 5) {
+        shortHtml = cols[0] + '<br />' + cols[1] + '<br />' + cols[2] + '<br />' + cols[3] + '<br />' + cols[4] + '</p>';
     }
     var contentData = {
         'shortHtml': shortHtml,
@@ -58,6 +64,39 @@ function topicCols(data){
     };
     return contentData;
 }
+
+function contentCols(dom, cols) {
+    var lineHeight = dom.css("line-height").toString().substr(0,2);
+    var contentHeight = dom.height();
+    if (contentHeight / lineHeight > cols) {
+        dom.height(lineHeight * cols);
+        dom.css("overflow", "hidden");
+        $('.more').removeClass('uhide');
+        $('.more').click(function () {
+            dom.css("overflow", "");
+            dom.height(contentHeight);
+            $('.more').addClass('uhide');
+        })
+    }
+}
+
+$('.appDown').click(function () {
+    var u = navigator.userAgent;
+    if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
+        window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client');
+    } else if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+        window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client&g_f=995016');
+    }
+})
+
+$('.footer').click(function () {
+    var u = navigator.userAgent;
+    if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
+        window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client');
+    } else if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+        window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client&g_f=995016');
+    }
+})
 
 /*测试数据--->话题详情*/
 var topicData = {
@@ -89,35 +128,680 @@ var topicData = {
 
 /*测试数据--->音乐详情*/
 var musicData = {
-    "id": "57428e6e02334de975e8e763",
+    "id": "5746a27e02334de948e8e74a",
     "type": 25,
-    "title": "没办法，我就是喜欢你啊！",
-    "text": "之前看小说《挪威的森林》时，特别喜欢小林绿子这个人物角色。\n\n印象很深的一个段落，是绿子在跟渡边告白时，说过这样的一段话：\n\n“我可是有血有肉的活生生的女孩儿，而且现在就在你的怀抱里表白说喜欢你。只要你一声令下，赴汤蹈火都在所不惜。虽然我多少有蛮不讲理的地方，但心地善良正直，勤快能干，脸蛋也相当俊俏，乳房形状也够好看，饭菜做得又好，父亲的遗产也办了信托存款，你还不以为这是大甩卖？你要是不买，我不久就到别处去。”\n率真可爱，开朗俏皮，面对爱情时从不躲避，毫不吝啬对喜欢的人好，喜欢一个人就一定要让他知道。\n\n这样勇敢直接的绿子，就像“春天的小鹿”一般。\n\n无法不让人心动。\n\n其实说到底，爱情，是一种违背科学理智的存在。\n\n在爱情发生之前，你的喜怒哀乐只跟一个人有关。\n\n在爱情发生之后，他的一言一行，你的一举一动。\n\n都将成为两个人美好的记忆。\n\n遇见真正喜欢的人，你会情不自禁的想着那个人。\n\n遇见真正喜欢的人，你会有种冲动想要告诉对方，我喜欢你。\n\n\n\n真事儿  喜欢一个人，是无法掩饰的。",
-    "songid": "1774495634",
+    "title": "梦想的彼岸，总是在未知的远方",
+    "text": "像从某个山谷传来的声音，空灵、婉转，浅唱低吟，令人沉醉，旋律柔和、安静，后半段小提琴的声音完全将心融化，这样的搭配组合让整首歌散发着一种随心所欲的美。至于歌名“On a Slow Boat to China”，是一句俚语，一艘船从欧美驶向中国，是一个漫长的旅途，当说到“a Slow Boat to China”时，通常暗指他们将会花很长的时间去实现自己的梦想。说到这，关于这首歌要表达的意思也自然明了了吧。\n\n\n梦想的彼岸，总是在未知的远方，虽然有时说不清那个梦想的具体意义，虽然坐上小船的在漫长的旅途里难免摇摇欲坠，但心底总有个叫信念的声音，告诉你，总有一天你终将会到达彼岸。",
+    "songid": "1771565857",
     "isLike": 0,
-    "comments": 19,
-    "likes": 295,
-    "tag": "就是喜欢你",
-    "tagCount": 2,
-    "addtime": 1463979630,
+    "comments": 16,
+    "likes": 282,
+    "tag": "听到就有好心情",
+    "tagCount": 217,
+    "addtime": 1464246910,
     "userinfo": {
-    "uid": 3023558,
-        "uname": "晨曦安来",
-        "icon": "http://pkicon.image.alimmdn.com/icon/20160329/dfafa966dc95c5ece41d9fbf127184bc.png?v=1459259623"
-},
+        "uid": 1260676,
+        "uname": "Sherry_Fino",
+        "icon": "http://pkicon.image.alimmdn.com/icon/676/dfd51f9208fae38d9896caaaf49b146f"
+    },
     "collInfo": {
-    "id": "571df27c01334ddd5828417c",
-        "name": "唱片",
-        "uid": 1585125,
-        "spaceName": "ぞ磊ぞ的片刻"
-},
+        "id": "57409f1801334d8923284179",
+        "name": "音乐",
+        "uid": 3792571,
+        "spaceName": "Hai.的片刻"
+    },
     "shareInfo": {
-    "title": "没办法，我就是喜欢你啊！",
-        "text": "之前看小说《挪威的森林》时，特别喜欢小林绿子这个人物角色。印象很深的一个段落，是绿子在跟渡边告白时，说过这样的一段话：“我可是有血有肉的活生生的女孩儿，而且现在",
+        "title": "梦想的彼岸，总是在未知的远方",
+        "text": "像从某个山谷传来的声音，空灵、婉转，浅唱低吟，令人沉醉，旋律柔和、安静，后半段小提琴的声音完全将心融化，这样的搭配组合让整首歌散发着一种随心所欲的美。至于歌名“",
         "pic": "http://pkimg.image.alimmdn.com/upload/20150818/d5bdde654d8c9317af0f253abc9f3bef.JPG",
-        "url": "http://pianke.me/posts/57428e6e02334de975e8e763"
+        "url": "http://pianke.me/posts/5746a27e02334de948e8e74a"
+    }
 }
+
+/*测试数据---> 文章详情*/
+var articleData = {
+    "id": "5527f076dfa6887a63000022",
+    "type": 15,
+    "typeName": "自由写作",
+    "todayInfo": {
+        "type": 23,
+        "typeName": "奇妙物语"
+    },
+    "coverimg": "http://pkimg.image.alimmdn.com/upload/20160524/d2e7c297ddb990f8ef043882ebe514a3.JPG",
+    "html": "<html >\n  <head>\n      <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n      <meta content=\"width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0\" name=\"viewport\">\n      <meta content=\"yes\" name=\"apple-mobile-web-app-capable\">\n          <title>片刻</title>\n      <style type=\"text/css\">\n        audio { width: 100%;}\n      </style>\n    </head>\n    <body>\n        <article class=\"typo container\">\n            <h1>魔术</h1>\n            <p class=\"author\"><span>作者: 文聰很忙</span>&nbsp;&nbsp; <span>3 min read</span>&nbsp;&nbsp;  <span>61人收录</span></p>\n\t\t\t<div class=\"recommend\"><p><span>“</span>你们眼中的魔术，只是商业手段、赚钱方法，但是在我眼中，是付出的整个人生。<span>”</span></p></div>\n            <p>孩子力竭声嘶地哭喊，大力捶击纹丝不动的木门，一缕灯光在门缝中渗入，孩子看到他的父亲，就在离他不足五米的地方，在捣鼓奇怪的机关箱子。收音机播放着谭咏麟经典怀旧的金曲，但根本不足以遮掩孩子的喊声，那个被父亲亲手锁紧在木箱里面的孩子。</p><p><br /></p><p>父亲关掉收音机，拿起几罐汽油，在木箱四周地上淋上汽油，在远处扔出一根火柴，火焰雄雄包围着木箱，闪烁着幼小的绝望。</p><p><br /></p><p>父亲在喃喃自语，“你一定要成功。”<br /></p><p><br /></p><p>【一】</p><p>观众齐声倒数十声，十，九，八，七，六，五，四，三，二，一！</p><p><br /></p><p>魔术师从十米半空中剧烈燃烧的大木箱里一跃而下，丝毫无损！</p><p><br /></p><p>观众全体站立爆发雷响一样的掌声，刘界天的逃脱魔术又再次成功了。</p><p><br /></p><p>台下有个观众吓出一身冷汗，不出一年，这个刘界天的魔术会让其他魔术师站不起来，实在是高超之极，毫无破绽，无与伦比的精彩。</p><p><br /></p><p>这个观众走出大厅，“我要知道他所有的秘密。”</p><p><br /></p><p>【二】</p><p>孩子长大后，继承了父亲的衣钵，在学校表演起了变鸽子，变玫瑰花的小魔术，成为了学校的明星，讨论人气程度甚至比会考还要高。</p><p><br /></p><p>孩子没什么朋友，只结交了一个成绩很好，也很受欢迎的班长，时间一长，也和这个门外汉班长讨论起魔术的精妙，告诉他很多的秘密。</p><p><br /></p><p>一次级会，孩子受邀表演节目，果然，一个变走扑克牌的魔术令台下的观众爆发热烈的掌声。</p><p><br /></p><p>“龌龊的招数，消失的扑克牌还留在他衣袖里面！”班长突然指出。</p><p><br /></p><p>……</p><p><br /></p><p>刘界天明天要表演一个用巨型电锯切碎一个观众成六份碎片的魔术，然而每个碎片还可以自由移动，毫无疑问，这个表演会再次震惊魔术界，其用具还在后台的仓库里面锁着。</p><p><br /></p><p>穿着黑色衣服的人轻松地解开大门，一窥究竟。</p><p><br /></p><p>奇怪的是，所有的工具都是正常的工具，没有秘密，没有镜子没有藏板没有机关！</p><p><br /></p><p>“你找到你想要的真相吗？”</p><p><br /></p><p>大灯突然亮明，刘界天手持一对手铐出现，黑衣男子发狂似的逃跑，突然一个趔趄倒下，双腿被手铐锁上了！</p><p><br /></p><p>“你……你为什么会出现在这里！”</p><p><br /></p><p>“别忘了我是搞魔术的。”</p><p><br /></p><p>“不可能！你的工具里面什么东西都没有，这里绝对不是你明天用的工具。”</p><p><br /></p><p>刘界天一步一步走近，蹲下，说，“你们眼中的魔术，只是商业手段，赚钱方法，但是在我眼中，是付出的整个人生。”</p><p><br /></p><p>【三】</p><p>孩子紧紧抱住他的父亲，泪如雨下，好像完全遗忘了身后燃烧的木屋。<br /></p><p><br /></p><p>父亲感动地搂住自己的孩子，“果然是我的孩子，你创造了命运，原谅我。”<br /></p><p><br /></p><p>……</p><p><br /></p><p>班长得意地指出男孩的魔术秘密，然后男孩冷静地说，“没有哦。”说罢掀起衣袖，几乎到肩膀。</p><p><br /></p><p>班长急了，大庭广众下揭穿人家的秘密，还失败了，能得了？</p><p><br /></p><p>“不对！藏在桌子里面！”</p><p><br /></p><p>男孩又把桌子正对观众，几个多事的同学看了一遍，什么都没有。</p><p><br /></p><p>“肯定还是藏在你身上，有本事你搜自己！”</p><p><br /></p><p>男孩露出无奈的表情，把全身搜了一次，连袜子都脱了，依然什么秘密都没有。</p><p><br /></p><p>班长一言不发，男孩说，“当然找不到，因为这是魔术哦。”</p><p><br /></p><p>台下观众以为这是魔术节目安排，再次爆发掌声，唯独班长一声不吭地坐下。</p><p><br /></p><p>班长其实是最受欢迎的人，只因男孩开始玩魔术后，他被冷落在一旁，所以想到这个方法想当众侮辱男孩。</p><p><br /></p><p>结束级会后，班长第一个跑回去教室的座位上，理清思路，但是看到语文书上有什么奇怪的东西，他慢慢拉出来，是刚刚的魔术弄消失的扑克牌！</p><p><br /></p><p>上面用黑色字体写着，“你永远猜不到我是怎么做的。”</p><p><br /></p><p>“啊！”</p><p><br /></p><p>【四】</p><p>“这就是你的成长故事？”<br /></p><p><br /></p><p>“对。”</p><p><br /></p><p>“不信，除非你告诉我你当年是怎么在箱子里逃出来的？”</p><p><br /></p><p>“明天表演结束后，告诉你。”</p><p><br /></p><p>刘界天把黑衣男子的嘴巴封上，绑在木椅子上，稳稳当当地。</p><p><br /></p><p>晚上经过一轮表演后，女助手兴奋地说，“下面来表演压轴魔术！电锯人体！”</p><p><br /></p><p>刘界天把黑衣男子推到舞台上，示意后台将器材拿出来，不一会儿，全场都听到震耳欲聋的电锯声音，电锯从天而降，正对着黑衣男子的头上，随着时间推移慢慢下降。</p><p><br /></p><p>黑衣男子吓出五脏六腑，可是又动弹不得，不断对刘界天眼神示意暂停。</p><p><br /></p><p>刘界天接过麦克风，幽默解说，“本来是由我来亲自表演这个逃脱节目的，可是临时有位观众朋友自告奋勇，我们就放眼看看，到底是惊险逃脱，还是被锯开两半呢，嘻嘻。”</p><p><br /></p><p>“好了各位观众，倒数十个数！松开这个电锯！”</p><p><br /></p><p>观众兴奋地鼓动起来。</p><p><br /></p><p>“十！”</p><p><br /></p><p>“九！”</p><p><br /></p><p>“八！”</p><p><br /></p><p>“七！”</p><p><br /></p><p>“六！”</p><p><br /></p><p>“五！”</p><p><br /></p><p>“四！”</p><p><br /></p><p>“三！”</p><p><br /></p><p>“二！”</p><p><br /></p><p>“一！”</p><p><br /></p><hr /><p>陈文聪，我最喜欢奇奇怪怪的文章，非鸡汤，现实，黑暗，绝对，不发人深省，但是你会看到镜子。新浪微博：<a href=\"http://weibo.com/u/1729071544?profile_ftype=1&amp;is_all=1#_0\" style=\"text-decoration:none;\" target=\"_blank\">@文聰很忙</a></p><pre>“奇妙物语”专收惊奇故事，欢迎将作品推荐至邮箱：pkstory@126.com，投稿请直接附上作品链接。</pre>\n            <br />\n            <p style=\"font-style:italic;font-size:0.875em;\">(来自：自由写作)</p>\n        </article>\n    </body>\n</html>",
+    "images": [],
+    "songid": "",
+    "isLike": 0,
+    "views": 10345,
+    "mins": 3,
+    "comments": 21,
+    "likes": 151,
+    "addtime": 1428680822,
+    "userinfo": {
+        "uid": 123145,
+        "uname": "文聰很忙",
+        "icon": "http://tp1.sinaimg.cn/1729071544/180/40000318128/1",
+        "desc": "巨蟹座",
+        "status": 0
+    },
+    "tingInfo": {},
+    "collInfo": {
+        "id": "56d5e3d001334d736428414e",
+        "name": "喜欢的文章",
+        "uid": 2968102,
+        "spaceName": ""
+    },
+    "shareInfo": {
+        "title": "魔术",
+        "text": "你们眼中的魔术，只是商业手段、赚钱方法，但是在我眼中，是付出的整个人生。",
+        "pic": "http://pkimg.image.alimmdn.com/upload/20150818/d5bdde654d8c9317af0f253abc9f3bef.JPG",
+        "url": "http://pianke.me/posts/5527f076dfa6887a63000022"
+    }
 }
+/*测试数据---> 文章内容*/
+var articleContentData = {
+    "id": "5527f076dfa6887a63000022",
+    "title": "魔术",
+    "type": 15,
+    "songid": "",
+    "wordcardid": "",
+    "tag": "故事",
+    "content": [
+        {
+            "imageUrl": "",
+            "content": "孩子力竭声嘶地哭喊，大力捶击纹丝不动的木门，一缕灯光在门缝中渗入，孩子看到他的父亲，就在离他不足五米的地方，在捣鼓奇怪的机关箱子。收音机播放着谭咏麟经典怀旧的金曲，但根本不足以遮掩孩子的喊声，那个被父亲亲手锁紧在木箱里面的孩子。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "父亲关掉收音机，拿起几罐汽油，在木箱四周地上淋上汽油，在远处扔出一根火柴，火焰雄雄包围着木箱，闪烁着幼小的绝望。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "父亲在喃喃自语，“你一定要成功。”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "【一】"
+        },
+        {
+            "imageUrl": "",
+            "content": "观众齐声倒数十声，十，九，八，七，六，五，四，三，二，一！"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "魔术师从十米半空中剧烈燃烧的大木箱里一跃而下，丝毫无损！"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "观众全体站立爆发雷响一样的掌声，刘界天的逃脱魔术又再次成功了。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "台下有个观众吓出一身冷汗，不出一年，这个刘界天的魔术会让其他魔术师站不起来，实在是高超之极，毫无破绽，无与伦比的精彩。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "这个观众走出大厅，“我要知道他所有的秘密。”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "【二】"
+        },
+        {
+            "imageUrl": "",
+            "content": "孩子长大后，继承了父亲的衣钵，在学校表演起了变鸽子，变玫瑰花的小魔术，成为了学校的明星，讨论人气程度甚至比会考还要高。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "孩子没什么朋友，只结交了一个成绩很好，也很受欢迎的班长，时间一长，也和这个门外汉班长讨论起魔术的精妙，告诉他很多的秘密。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "一次级会，孩子受邀表演节目，果然，一个变走扑克牌的魔术令台下的观众爆发热烈的掌声。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“龌龊的招数，消失的扑克牌还留在他衣袖里面！”班长突然指出。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "……"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "刘界天明天要表演一个用巨型电锯切碎一个观众成六份碎片的魔术，然而每个碎片还可以自由移动，毫无疑问，这个表演会再次震惊魔术界，其用具还在后台的仓库里面锁着。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "穿着黑色衣服的人轻松地解开大门，一窥究竟。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "奇怪的是，所有的工具都是正常的工具，没有秘密，没有镜子没有藏板没有机关！"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“你找到你想要的真相吗？”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "大灯突然亮明，刘界天手持一对手铐出现，黑衣男子发狂似的逃跑，突然一个趔趄倒下，双腿被手铐锁上了！"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“你……你为什么会出现在这里！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“别忘了我是搞魔术的。”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“不可能！你的工具里面什么东西都没有，这里绝对不是你明天用的工具。”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "刘界天一步一步走近，蹲下，说，“你们眼中的魔术，只是商业手段，赚钱方法，但是在我眼中，是付出的整个人生。”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "【三】"
+        },
+        {
+            "imageUrl": "",
+            "content": "孩子紧紧抱住他的父亲，泪如雨下，好像完全遗忘了身后燃烧的木屋。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "父亲感动地搂住自己的孩子，“果然是我的孩子，你创造了命运，原谅我。”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "……"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "班长得意地指出男孩的魔术秘密，然后男孩冷静地说，“没有哦。”说罢掀起衣袖，几乎到肩膀。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "班长急了，大庭广众下揭穿人家的秘密，还失败了，能得了？"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“不对！藏在桌子里面！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "男孩又把桌子正对观众，几个多事的同学看了一遍，什么都没有。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“肯定还是藏在你身上，有本事你搜自己！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "男孩露出无奈的表情，把全身搜了一次，连袜子都脱了，依然什么秘密都没有。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "班长一言不发，男孩说，“当然找不到，因为这是魔术哦。”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "台下观众以为这是魔术节目安排，再次爆发掌声，唯独班长一声不吭地坐下。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "班长其实是最受欢迎的人，只因男孩开始玩魔术后，他被冷落在一旁，所以想到这个方法想当众侮辱男孩。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "结束级会后，班长第一个跑回去教室的座位上，理清思路，但是看到语文书上有什么奇怪的东西，他慢慢拉出来，是刚刚的魔术弄消失的扑克牌！"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "上面用黑色字体写着，“你永远猜不到我是怎么做的。”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“啊！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "【四】"
+        },
+        {
+            "imageUrl": "",
+            "content": "“这就是你的成长故事？”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“对。”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“不信，除非你告诉我你当年是怎么在箱子里逃出来的？”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“明天表演结束后，告诉你。”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "刘界天把黑衣男子的嘴巴封上，绑在木椅子上，稳稳当当地。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "晚上经过一轮表演后，女助手兴奋地说，“下面来表演压轴魔术！电锯人体！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "刘界天把黑衣男子推到舞台上，示意后台将器材拿出来，不一会儿，全场都听到震耳欲聋的电锯声音，电锯从天而降，正对着黑衣男子的头上，随着时间推移慢慢下降。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "黑衣男子吓出五脏六腑，可是又动弹不得，不断对刘界天眼神示意暂停。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "刘界天接过麦克风，幽默解说，“本来是由我来亲自表演这个逃脱节目的，可是临时有位观众朋友自告奋勇，我们就放眼看看，到底是惊险逃脱，还是被锯开两半呢，嘻嘻。”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“好了各位观众，倒数十个数！松开这个电锯！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "观众兴奋地鼓动起来。"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“十！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“九！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“八！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“七！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“六！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“五！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“四！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“三！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“二！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "“一！”"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "陈文聪，我最喜欢奇奇怪怪的文章，非鸡汤，现实，黑暗，绝对，不发人深省，但是你会看到镜子。新浪微博：<a href=\"http://weibo.com/u/1729071544?profile_ftype=1&amp;is_all=1#_0\" style=\"text-decoration:none;\" target=\"_blank\">@文聰很忙</a>"
+        }
+    ]
+}
+
+/*测试数据---> 碎片详情*/
+var timelineData = {
+    "id": "574d0add01334daf3828419c",
+    "type": 2,
+    "coverimg": "http://pkimg.image.alimmdn.com/upload/20160531/7e4222512260b3c7f17cbc9f5f1d20d9.png",
+    "text": "f是一朵花，它喜欢水，却不喜欢太多水。",
+    "songid": "1770155810",
+    "isLike": 0,
+    "comments": 0,
+    "likes": 0,
+    "tag": "故事",
+    "tagCount": 81,
+    "addtime": 1464666845,
+    "userinfo": {
+        "uid": 3676000,
+        "uname": "我喜欢你爱我的心",
+        "icon": "http://pkicon.image.alimmdn.com/icon/20160520/83d0d6ca654cc15a91ecaf8699676b46.jpg?v=1463759082"
+    },
+    "collInfo": {
+        "id": "5716533502334df078e8e6d3",
+        "name": "入场",
+        "uid": 3676000,
+        "spaceName": "我喜欢你爱我的心"
+    },
+    "shareInfo": {
+        "title": "故事",
+        "text": "f是一朵花，它喜欢水，却不喜欢太多水。",
+        "pic": "http://pkimg.image.alimmdn.com/upload/20160531/7e4222512260b3c7f17cbc9f5f1d20d9.png",
+        "url": "http://pianke.me/timeline/574d0add01334daf3828419c"
+    },
+    "commentList": []
+}
+
+/*测试数据---> 电台Ting详情*/
+var tingData = {
+    "tingid": "5734954b723125fa558b4603",
+    "contentid": "5734954b723125fa558b4604",
+    "title": "莉莉安 女声翻唱",
+    "imgUrl": "http://pkimg.image.alimmdn.com/upload/20160519/df750b16aeb8522209bc2d5e1474c505.JPG",
+    "musicUrl": "http://pianke.file.alimmdn.com/upload/20160512/c42523d78fbc4f960da8409789b2adc5.MP3",
+    "webview_url": "http://pianke.me/webview/573493745d7743062d8b4578",
+    "isLike": 0,
+    "comments": 47,
+    "likes": 944,
+    "plays": 12687,
+    "collInfo": {
+        "id": "56a4ee5002334dd50818b2e1",
+        "name": "",
+        "uid": 846232,
+        "spaceName": "幺儿 .的片刻"
+    },
+    "userinfo": {
+        "uid": 3745607,
+        "uname": "Mukyo狗狗",
+        "icon": "http://pkicon.image.alimmdn.com/icon/20160511/f90441a5390f1f1d6906b938d2cc989d.png?v=1462930008"
+    },
+    "authorinfo": {
+        "uid": 3745607,
+        "uname": "Mukyo狗狗",
+        "icon": "http://pkicon.image.alimmdn.com/icon/20160511/f90441a5390f1f1d6906b938d2cc989d.png?v=1462930008"
+    },
+    "shareinfo": {
+        "title": "莉莉安 女声翻唱",
+        "pic": "http://pkimg.image.alimmdn.com/upload/20160519/df750b16aeb8522209bc2d5e1474c505.JPG",
+        "text": "我正在收听《莉莉安 女声翻唱》。主播：Mukyo狗狗 用声音交换世界，我在#片刻·ting#",
+        "url": "http://pianke.me/ting/5734954b723125fa558b4603"
+    }
+}
+/*测试数据---> 电台Ting原文数据*/
+var tingArticleData = {
+    "id": "573493745d7743062d8b4578",
+    "title": "莉莉安 女声翻唱",
+    "type": 15,
+    "songid": "",
+    "wordcardid": "",
+    "tag": "音乐",
+    "content": [
+        {
+            "imageUrl": "",
+            "content": "5sing/echo/唱吧：Mukyo狗狗"
+        },
+        {
+            "imageUrl": "",
+            "content": "微博：@Mukyo就是狗狗"
+        },
+        {
+            "imageUrl": "",
+            "content": "谢谢每一位听歌的人"
+        },
+        {
+            "imageUrl": "",
+            "content": ""
+        },
+        {
+            "imageUrl": "http://pkimg.image.alimmdn.com/upload/20160512/f302a5b1efe5919dd6c1403cae1aee3c.jpeg",
+            "content": ""
+        },
+        {
+            "imageUrl": "",
+            "content": "莉莉安原唱：宋冬野"
+        },
+        {
+            "imageUrl": "",
+            "content": "改编首唱：徐佳莹翻唱：Mukyo狗狗后期：麦兜不吃书她发现孤独的人准备动身于是就祷告着 黄昏直到夜里她转头听见悲伤的呜咽一个善良的女子 长发垂肩她已跟随黄昏 来临翠绿的衣裳在炉火中 化为灰烬升起火焰一直烧到 黎明一直到那女子 推开门离去她自言自语在离这很远的地方 有一片海滩孤独的人他就在海上 撑着船帆如果你看到他 回到海岸就请你告诉他你的名字我的名字 莉莉安她已来临翠绿的衣裳在炉火中 化为灰烬升起火焰一直烧到 黎明一直到那女子 推开门离去她自言自语在离这很远的地方 有一片海滩孤独的人他就在海上 撑着船帆如果你看到他 回到海岸就请你告诉他你的名字我的名字 莉莉安她不想忘记了她的名她不想胆怯了失去爱的勇气在离这很远的地方 有一片海滩孤独的人他就在海上 撑着船帆如果你看到他 回到海岸就请你告诉他你的名字 我的名字 在离这很远的地方 有一片海滩孤独的人他就在海上 撑着船帆如果你看到他 回到海岸就请你 告诉他你的名字我的名字 莉莉安End."
+        }
+    ]
+}
+
 
 /*测试数据--->评论列表(3条)*/
 var commentList = [

@@ -1,29 +1,38 @@
 var Vue = require('vue');
 var VueRouter = require('vue-router');
-require('../assets/js/common.js');
 
 // 安装路由模块
 Vue.use(VueRouter);
 
 // 创建一个路由器实例
 var router = new VueRouter({
-    basePath: '/assets/img'
 });
 
 router.map({
-    '/topic': {
+    '/topic/:id': {
+        name: 'topic',
         component: function (resolve) {
             require(['./views/topic'], resolve);
         }
     },
-    '/note': {
+    '/music/:id': {
         component: function (resolve) {
-            require(['./views/note'], resolve);
+            require(['./views/music'], resolve);
         }
     },
-    '/article': {
+    '/article/:id': {
         component: function (resolve) {
             require(['./views/article'], resolve);
+        }
+    },
+    '/radio/:id': {
+        component: function (resolve) {
+            require(['./views/radio'], resolve);
+        }
+    },
+    '/timeline/:id': {
+        component: function (resolve) {
+            require(['./views/timeline'], resolve);
         }
     }
 });
