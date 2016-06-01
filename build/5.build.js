@@ -34,7 +34,7 @@ webpackJsonp([5,6],{
 /***/ 13:
 /***/ function(module, exports) {
 
-	module.exports = "<!--timeline start-->\r\n<div class=\"ub ub-ver ub-ac ub-pc\">\r\n    <div class=\"ub-f1 articleTop articleImage\">\r\n        <img src=\"xxxHTMLLINKxxx0.61418878883278480.3645792564827868xxx\" width=\"100%\" alt=\"\">\r\n    </div>\r\n</div>\r\n<!--timeline end-->\r\n<div class=\"commonSpace\"></div>\r\n\r\n<div class=\"appDown ub ub-ver ub-ac\">\r\n    <div class=\"ub-img appImage\"></div>\r\n    <div class=\"ub appText\">\r\n        <div>打开片刻APP</div>\r\n        <div class=\"appComma\">,</div>\r\n        <div>收听更多高质音乐</div>\r\n    </div>\r\n</div>";
+	module.exports = "<!--timeline start-->\r\n<div class=\"ub ub-ver ub-ac ub-pc\">\r\n    <div class=\"ub-f1 articleTop articleImage\">\r\n        <img src=\"xxxHTMLLINKxxx0.89711454361658190.1165156935491074xxx\" width=\"100%\" alt=\"\">\r\n    </div>\r\n</div>\r\n<!--timeline end-->\r\n<div class=\"commonSpace\"></div>\r\n\r\n<div class=\"appDown ub ub-ver ub-ac\">\r\n    <div class=\"ub-img appImage\"></div>\r\n    <div class=\"ub appText\">\r\n        <div>打开片刻APP</div>\r\n        <div class=\"appComma\">,</div>\r\n        <div>收听更多高质音乐</div>\r\n    </div>\r\n</div>";
 
 /***/ }
 

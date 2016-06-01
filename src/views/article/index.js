@@ -16,6 +16,12 @@ module.exports = {
             this.offset = this.cnt.content.length;
         }
     },
+    ready: function(){
+        console.log('ready');
+        $('.articleContent').click(function(){
+            alert(1)
+        })
+    },
     aync: function(){
         var self = this;
         $.ajax({

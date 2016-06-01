@@ -59,9 +59,6 @@
 </template>
 
 <script>
-
-    var $ = require('zepto');
-
     //请求接口,获取热门数据
     /*R.ajax({
      url: 'pub/today.php',

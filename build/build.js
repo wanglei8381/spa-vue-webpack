@@ -25,7 +25,7 @@ webpackJsonp([0,6],[
 	    },
 	    '/article/:id': {
 	        component: function (resolve) {
-	            __webpack_require__.e/* require */(3/* empty */, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(8)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
+	            __webpack_require__.e/* require */(3, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(8)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
 	        }
 	    },
 	    '/radio/:id': {
