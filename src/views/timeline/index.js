@@ -1,3 +1,22 @@
+var Vue = require('vue');
+var my = Vue.extend({
+    template: '<h1>Hello {{msg}}</h1>',
+    data: function(){
+        return {
+            msg: 'LSII'
+        }
+    }
+});
+Vue.component('my', my);
+new Vue({
+    el: 'html',
+    data: {
+        msg: 'world'
+    }
+});
+
+
+
 module.exports = {
     template: require('./template.html'),
     data: function () {
@@ -15,15 +34,17 @@ module.exports = {
         }
     },
     ready: function(){
-        var id = '574d0add01334daf3828419c'
-        /*R.ajax({
-            url: 'timeline/info.php',
-            data: {
-                contentid: id
-            },
-            success: function (data) {
-                this.$data.timelineData = data
-            }
-        });*/
+        console.log("xxxxxxxxxxxxxxx");
+        /*var self = this;
+         var id = self.$route.params.id;
+         R.ajax({
+         url: 'timeline/info.php',
+         data: {
+         contentid: id
+         },
+         success: function (data) {
+         self.timelineData = data;
+         }
+         });*/
     }
 }

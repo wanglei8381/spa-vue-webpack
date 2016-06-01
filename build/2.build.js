@@ -6,6 +6,7 @@ webpackJsonp([2,6],{
 	module.exports = {
 	    template: __webpack_require__(7),
 	    data: function () {
+	        musicData = {};
 	        return musicData;
 	    },
 	    computed: {
@@ -111,6 +112,7 @@ webpackJsonp([2,6],{
 	        }
 	    },
 	    ready: function () {
+	
 	        var self = this;
 	        $(window).scroll(function () {
 	            var a = document.body.scrollTop;
@@ -122,8 +124,18 @@ webpackJsonp([2,6],{
 	                self.$options.methods.playStatus();
 	            }
 	        });
-	        self.$options.methods.playControl();
-	        contentCols($('.musicContent'), 5);
+	        var id = self.$route.params.id;
+	        R.ajax({
+	            url: 'music/info.php',
+	            data: {
+	                contentid: id
+	            },
+	            success: function (data) {
+	                self.musicData = data;
+	                self.$options.methods.playControl(); //歌曲播放控制
+	                contentCols($('.musicContent'), 5);
+	            }
+	        });
 	    }
 	};
 

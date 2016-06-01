@@ -59,31 +59,6 @@
 </template>
 
 <script>
-    export default {
-
-        name: 'share',
-
-        props: {
-            item: Object,
-            index: Number
-        },
-
-        computed: {
-            href () {
-                return this.item.url || ('#/item/' + this.item.id)
-            },
-            showInfo () {
-                return this.item.type === 'story' || this.item.type === 'poll'
-            },
-            showDomain () {
-                return this.item.type === 'story'
-            }
-        }
-    }
-
-
-
-
     //请求接口,获取热门数据
     /*R.ajax({
      url: 'pub/today.php',

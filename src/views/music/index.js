@@ -1,6 +1,7 @@
 module.exports = {
     template: require('./template.html'),
     data: function () {
+        musicData = {}
         return musicData;
     },
     computed: {
@@ -106,6 +107,7 @@ module.exports = {
         }
     },
     ready: function () {
+
         var self = this;
         $(window).scroll(function () {
             var a = document.body.scrollTop;
@@ -117,7 +119,17 @@ module.exports = {
                 self.$options.methods.playStatus();
             }
         })
-        self.$options.methods.playControl();
-        contentCols($('.musicContent'), 5);
+        var id = self.$route.params.id;
+        R.ajax({
+            url: 'music/info.php',
+            data: {
+                contentid: id
+            },
+            success: function (data) {
+                self.musicData = data;
+                self.$options.methods.playControl();  //歌曲播放控制
+                contentCols($('.musicContent'), 5);
+            }
+        });
     }
 }

@@ -6,45 +6,29 @@ webpackJsonp([1,6],{
 	module.exports = {
 	    template: __webpack_require__(5),
 	    data: function () {
-	        topicData = {};
+	        //topicData={}
 	        return topicData;
 	    },
-	    computed: {
-	        minContent: function () {
-	            return topicCols(this.html).shortHtml;
-	        },
-	        uhide: function () {
-	            return;
-	        }
-	    },
-	    aync: function () {
-	        var self = this;
-	        $.ajax({
-	            success: function (data) {
-	                self.info = data;
-	            }
-	        });
-	    },
 	    ready: function () {
-	        var id = '574d0add01334daf3828419c';
-	        /*R.ajax({
-	         url: 'topic/info.php',
-	         data: {
-	         contentid: id
-	         },
-	         success: function (data) {
-	         this.$data.topicData = data
-	         }
-	         });*/
-	
-	        var topicContent = $('.topicContent').html();
-	        $('.topicContent').html(topicCols(topicContent).shortHtml); //话题内容
-	        if (topicCols(topicContent).dataLenght > 5) {
-	            $('.more').removeClass('uhide');
-	        }
-	        $('.more').click(function () {
-	            $('.topicContent').html(topicData.html); //话题内容
-	            $('.more').addClass('uhide');
+	        var self = this;
+	        var id = self.$route.params.id;
+	        R.ajax({
+	            url: 'topic/info.php',
+	            data: {
+	                contentid: id
+	            },
+	            success: function (data) {
+	                self.topicData = data;
+	                var topicContent = $('.topicContent').html();
+	                $('.topicContent').html(topicCols(topicContent).shortHtml); //话题内容
+	                if (topicCols(topicContent).dataLenght > 5) {
+	                    $('.more').removeClass('uhide');
+	                }
+	                $('.more').click(function () {
+	                    $('.topicContent').html(topicData.html); //话题内容
+	                    $('.more').addClass('uhide');
+	                });
+	            }
 	        });
 	    }
 	};

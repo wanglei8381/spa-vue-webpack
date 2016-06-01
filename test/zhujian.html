@@ -1,15 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{msg}}</title>
-</head>
-<body>
+<!--timeline start-->
+<div class="ub ub-ver ub-ac ub-pc">
+    <div class="ub-f1 articleTop articleImage">
+        <img v-bind:src="coverimg" width="100%" alt="">
+    </div>
+</div>
+<div class="timeline">
+    <div class="articleContent">
+        {{text}}
+    </div>
+    <div class="playTime">by:&nbsp; <span>{{userinfo.uname}}</span></div>
+</div>
+<!--timeline end-->
+<div class="commonSpace"></div>
 
-<my><my/>
+<div class="appDown ub ub-ver ub-ac" v-on:click="download">
+    <div class="ub-img appImage"></div>
+    <div class="ub appText">
+        <div>打开片刻APP</div>
+        <div class="appComma">,</div>
+        <div>查看更多碎片</div>
+    </div>
+</div>
+
+<my></my>
 <script src="//cdn.bootcss.com/vue/1.0.24/vue.min.js"></script>
-
 <script>
+
     var my = Vue.extend({
         template: '<h1>Hello {{msg}}</h1>',
         data: function(){
@@ -25,6 +41,5 @@
             msg: 'world'
         }
     });
+
 </script>
-</body>
-</html>

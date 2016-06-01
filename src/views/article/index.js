@@ -3,28 +3,27 @@ module.exports = {
     data: function () {
         return {info: articleData, cnt: articleContentData};
     },
-    /*computed: {
-        uhide: function () {
-            return this.cnt.content.length > 20 ? '' : 'uhide';
-        },
-        minContent: function () {
-            return this.cnt.content.splice(0,this.offset);
-        }
-    },
-    methods: {
-        'showAll': function (e) {
-            this.offset = this.cnt.content.length;
-        }
-    },*/
-    aync: function(){
+    ready: function () {
         var self = this;
-        $.ajax({
-            success: function(data){
+        var id = self.$route.params.id;
+        R.ajax({
+            url: 'article/info.php',
+            data: {
+                contentid: id
+            },
+            success: function (data) {
                 self.info = data;
             }
         });
-    },
-    ready: function(){
-        contentCols($('.articleContent'), 20);
+        R.ajax({
+            url: 'article/editableInfo.php',
+            data: {
+                id: id
+            },
+            success: function (data) {
+                self.cnt = data;
+                contentCols($('.articleContent'), 20);
+            }
+        });
     }
 }

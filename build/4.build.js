@@ -106,6 +106,19 @@ webpackJsonp([4,6],{
 	                $('.fiexedPlay').removeClass('fixedPauseIcon');
 	                $('.fiexedPlay').addClass('fixedPlayIcon');
 	            }
+	        },
+	        'showTingArticleInfo': function (id) {
+	            var self = this;
+	            R.ajax({
+	                url: 'article/editableInfo.php',
+	                data: {
+	                    id: id
+	                },
+	                success: function (data) {
+	                    self.cnt = data;
+	                    contentCols($('.radioContent'), 20); //歌曲内容行数控制
+	                }
+	            });
 	        }
 	    },
 	    ready: function () {
@@ -120,8 +133,20 @@ webpackJsonp([4,6],{
 	                self.$options.methods.playStatus();
 	            }
 	        });
-	        self.$options.methods.playControl();
-	        contentCols($('.radioContent'), 20);
+	        var id = self.$route.params.id;
+	        R.ajax({
+	            url: 'ting/info.php',
+	            data: {
+	                tingid: id
+	            },
+	            success: function (data) {
+	                self.info = data;
+	                var idIndex = data.webview_url.lastIndexOf('/');
+	                var tingAriticleId = data.webview_url.substring(idIndex + 1);
+	                self.$options.methods.showTingArticleInfo(tingAriticleId); //获取原文
+	                self.$options.methods.playControl(); //歌曲播放控制
+	            }
+	        });
 	    }
 	};
 
