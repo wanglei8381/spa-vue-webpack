@@ -1,10 +1,10 @@
 webpackJsonp([1,6],{
 
-/***/ 4:
+/***/ 7:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	    template: __webpack_require__(5),
+	    template: __webpack_require__(8),
 	    data: function () {
 	        //topicData={}
 	        return topicData;
@@ -35,7 +35,7 @@ webpackJsonp([1,6],{
 
 /***/ },
 
-/***/ 5:
+/***/ 8:
 /***/ function(module, exports) {
 
 	module.exports = "<!--topic start-->\r\n<div class=\"topic\">\r\n    <div class=\"ub\">\r\n        <div class=\"topicMarks ub-img\"></div>\r\n        <div class=\"joinPerson\"><span>{{topicUsers}}</span>人&nbsp;参与</div>\r\n    </div>\r\n    <div class=\"topicTitle\">{{title}}</div>\r\n    <div class=\"ub ub-ac\">\r\n        <div>\r\n            <img v-bind:src=\"userinfo.icon\" alt=\"\" class=\"commentUserIcon\">\r\n        </div>\r\n        <div class=\"topicAdmin\">{{userinfo.uname}}</div>\r\n        <div class=\"ub-f1\"><span class=\"topicType\">楼主</span></div>\r\n    </div>\r\n    <hr class=\"topicHr\">\r\n    <div class=\"topicContent\">\r\n        {{{html}}}\r\n    </div>\r\n    <div class=\"more ub ub-ver ub-ac uhide\">\r\n        <div>查看全部</div>\r\n        <div class=\"ub-img moredown\"></div>\r\n    </div>\r\n\r\n</div>\r\n<!--topic end-->";

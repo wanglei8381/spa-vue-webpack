@@ -15,9 +15,14 @@ module.exports = {
             { test: /\.scss$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")},
             { test: /\.less$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")},
             { test: /\.styl$/, loader: "style!css!stylus" },
-            { test: /\.js$/, loader: 'babel' },
-            { test: /\.html$/, loader: "html" }
+            { test: /\.js$/, loader: 'babel'},
+            { test: /\.html$/, loader: "html" },
+            { test: /\.vue$/, loader: "vue" }
         ]
+    },
+    babel: {
+        //presets: ['es2015', 'stage-0'],
+        //plugins: ['transform-runtime']
     },
     resolve:{
         extensions:['','.js','.json']

@@ -58,7 +58,8 @@ function topicCols(data) {
 }
 
 function contentCols(dom, cols) {
-    var lineHeight = dom.css("line-height").toString().substr(0,2);
+    var lineH = dom.css("line-height");
+    var lineHeight = parseInt(lineH);
     var contentHeight = dom.height();
 
     if (contentHeight / lineHeight > cols) {

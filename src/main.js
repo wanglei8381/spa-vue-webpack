@@ -1,9 +1,8 @@
 var Vue = require('vue');
 var VueRouter = require('vue-router');
-
-
 // 安装路由模块
 Vue.use(VueRouter);
+
 
 // 创建一个路由器实例
 var router = new VueRouter({
@@ -38,6 +37,9 @@ router.map({
     }
 });
 
+//全局组件
+Vue.component('comment-cpt', require('./components/comment.vue'));
+
 // 路由器需要一个根组件。
 var App = Vue.extend({
     data: function(){
@@ -47,3 +49,5 @@ var App = Vue.extend({
 
 // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
 router.start(App, 'html');
+
+

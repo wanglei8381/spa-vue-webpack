@@ -7,7 +7,23 @@
             <div class="titleS">HOT COMMENTS</div>
         </div>
 
-        <div class="commentList"></div>
+        <div class="commentList">
+            <template v-for="item in list">
+                <div class="ub ub-ver commentBody">
+                    <div class="ub ub-ac">
+                        <div class="ub">
+                            <img :src="item.userinfo.icon" class="commentUserIcon" alt="">
+                        </div>
+                        <div class="ub-f1 commentUserName">{{item.userinfo.uname}}</div>
+                        <div class="ub ub-pe">
+                            <div class="ub-img praiseImg"></div>
+                            <div class="praise">{{item.goods}}</div>
+                        </div>
+                    </div>
+                    <div class="commentContent">{{item.content}}</div>
+                </div>
+            </template>
+        </div>
 
         <div class="appDown ub ub-ver ub-ac">
             <div class="ub-img appImage"></div>
@@ -20,53 +36,39 @@
     </div>
     <!--commend end-->
 </template>
+
 <script>
-    import HeaderComponent from './components/header.vue'
-    import OtherComponent from './components/other.vue'
-    export default{
-        data(){
-            return{
-                msg:'hello vue'
+
+    module.exports = {
+        data: function () {
+            //timelineData = {}
+            return {list: []};
+        },
+        methods: {
+            'download': function (e) {
+                var u = navigator.userAgent;
+                if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
+                    window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client');
+                } else if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+                    window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client&g_f=995016');
+                }
             }
         },
-        components:{
-            'other-component':OtherComponent,
-            HeaderComponent,
+        ready: function () {
+            console.log("id====" + this.$route.params.id);
+            var self = this;
+            var id = self.$route.params.id;
+            $.ajax({
+                url: './src/components/data.json',
+                data: {
+                    contentid: id
+                },
+                dataType:'json',
+                success: function (data) {
+                    self.list = data.splice(0,3);
+                }
+            });
         }
-    }
+    };
 
-
-    //请求接口,获取话题评论列表
-    /*var id = '5740021702334d673ee8e71e';
-     R.ajax({
-     url: 'comment/list.php',
-     data: {
-     contentid: id,
-     pageSize: 3,
-     isAll: 0
-     },
-     success: function (data) {
-     showTopicCommentList(data)
-     }
-     });*/
-    showTopicCommentList();
-    function showTopicCommentList() {
-        var str = '';
-        for (var i = 0; i < 3; i++) {
-            str += '<div class="ub ub-ver commentBody">' +
-                    '<div class="ub ub-ac">' +
-                    '<div class="ub">' +
-                    '<img src="' + commentList[i].userinfo.icon + '" class="commentUserIcon" alt="">' +
-                    '</div>' +
-                    '<div class="ub-f1 commentUserName">' + commentList[i].userinfo.uname + '</div>' +
-                    '<div class="ub ub-pe">' +
-                    '<div class="ub-img praiseImg"></div>' +
-                    '<div class="praise">' + commentList[i].goods + '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="commentContent">' + commentList[i].content + '</div>' +
-                    '</div>';
-        }
-        $('.commentList').html(str);
-    }
 </script>

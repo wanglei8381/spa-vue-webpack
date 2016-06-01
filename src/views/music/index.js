@@ -1,8 +1,7 @@
 module.exports = {
     template: require('./template.html'),
     data: function () {
-        musicData = {}
-        return musicData;
+        return {};
     },
     computed: {
         musicUrl: function () {
@@ -20,7 +19,7 @@ module.exports = {
             }
         },
         'playControl': function () {
-            var self=this;
+            var self = this;
             var audio = document.getElementById("audiosrc");
             audio.addEventListener("loadeddata", //歌曲一经完整的加载完毕()
                 function () {
@@ -32,6 +31,8 @@ module.exports = {
                     }, 1000);
                 }, false);
             audio.addEventListener("ended", function () {
+                self.isplay = 0;
+                $('.radioTop').css('animation-play-state', 'paused');
                 $('.radioPlay').removeClass('radioPlayF');
                 $('.radioPlay').addClass('radioPlayT');
                 $('.fiexedPlay').removeClass('fixedPauseIcon');
@@ -72,7 +73,7 @@ module.exports = {
                 }
             })
         },
-        'timeChange': function (time,timePlace) {
+        'timeChange': function (time, timePlace) {
             //分钟
             var minute = time / 60;
             var minutes = parseInt(minute);
@@ -88,7 +89,7 @@ module.exports = {
             var allTime = "" + minutes + "" + " : " + "" + seconds + ""
             $('.' + timePlace).html(allTime);
         },
-        'playStatus': function(){
+        'playStatus': function () {
             var self = this;
             if (self.isplay == 1) {
                 $('.musicTop').addClass('playAnimation');
@@ -106,6 +107,12 @@ module.exports = {
             }
         }
     },
+    watch: {
+        "text": function () {
+            console.log('heheh')
+            contentCols($('.musicContent'), 5);
+        }
+    },
     ready: function () {
 
         var self = this;
@@ -118,18 +125,29 @@ module.exports = {
                 $('.fixedPlay').addClass('uhide');
                 self.$options.methods.playStatus();
             }
-        })
+        });
+
         var id = self.$route.params.id;
-        R.ajax({
-            url: 'music/info.php',
-            data: {
-                contentid: id
-            },
+        $.ajax({
+            url: 'src/views/music/data.json',
+            dataType: 'json',
             success: function (data) {
-                self.musicData = data;
+                self.$data = data;
                 self.$options.methods.playControl();  //歌曲播放控制
-                contentCols($('.musicContent'), 5);
+            },
+            error: function () {
             }
         });
+        //R.ajax({
+        //    url: 'music/info.php',
+        //    data: {
+        //        contentid: id
+        //    },
+        //    success: function (data) {
+        //        self.musicData = data;
+        //        self.$options.methods.playControl();  //歌曲播放控制
+        //        contentCols($('.musicContent'), 5);
+        //    }
+        //});
     }
 }

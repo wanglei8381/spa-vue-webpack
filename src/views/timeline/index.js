@@ -1,22 +1,3 @@
-var Vue = require('vue');
-var my = Vue.extend({
-    template: '<h1>Hello {{msg}}</h1>',
-    data: function(){
-        return {
-            msg: 'LSII'
-        }
-    }
-});
-Vue.component('my', my);
-new Vue({
-    el: 'html',
-    data: {
-        msg: 'world'
-    }
-});
-
-
-
 module.exports = {
     template: require('./template.html'),
     data: function () {

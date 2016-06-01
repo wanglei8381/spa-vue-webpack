@@ -1,30 +1,10 @@
 webpackJsonp([5,6],{
 
-/***/ 12:
+/***/ 15:
 /***/ function(module, exports, __webpack_require__) {
 
-	
-	
-	var Vue = __webpack_require__(1);
-	var VueRouter = __webpack_require__(3);
-	var my = Vue.extend({
-	    template: '<h1>Hello {{msg}}</h1>',
-	    data: function () {
-	        return {
-	            msg: 'LSII'
-	        };
-	    }
-	});
-	Vue.component('my', my);
-	new Vue({
-	    el: 'html',
-	    data: {
-	        msg: 'world'
-	    }
-	});
-	
 	module.exports = {
-	    template: __webpack_require__(13),
+	    template: __webpack_require__(16),
 	    data: function () {
 	        //timelineData = {}
 	        return timelineData;
@@ -57,10 +37,10 @@ webpackJsonp([5,6],{
 
 /***/ },
 
-/***/ 13:
+/***/ 16:
 /***/ function(module, exports) {
 
-	module.exports = "<!--timeline start-->\r\n<div class=\"ub ub-ver ub-ac ub-pc\">\r\n    <div class=\"ub-f1 articleTop articleImage\">\r\n        <img v-bind:src=\"coverimg\" width=\"100%\" alt=\"\">\r\n    </div>\r\n</div>\r\n<div class=\"timeline\">\r\n    <div class=\"articleContent\">\r\n        {{text}}\r\n    </div>\r\n    <div class=\"playTime\">by:&nbsp; <span>{{userinfo.uname}}</span></div>\r\n</div>\r\n<!--timeline end-->\r\n<div class=\"commonSpace\"></div>\r\n\r\n<div class=\"appDown ub ub-ver ub-ac\" v-on:click=\"download\">\r\n    <div class=\"ub-img appImage\"></div>\r\n    <div class=\"ub appText\">\r\n        <div>打开片刻APP</div>\r\n        <div class=\"appComma\">,</div>\r\n        <div>查看更多碎片</div>\r\n    </div>\r\n</div>\r\n\r\n<my></my>";
+	module.exports = "<!--timeline start-->\r\n<div class=\"ub ub-ver ub-ac ub-pc\">\r\n    <div class=\"ub-f1 articleTop articleImage\">\r\n        <img v-bind:src=\"coverimg\" width=\"100%\" alt=\"\">\r\n    </div>\r\n</div>\r\n<div class=\"timeline\">\r\n    <div class=\"articleContent\">\r\n        {{text}}\r\n    </div>\r\n    <div class=\"playTime\">by:&nbsp; <span>{{userinfo.uname}}</span></div>\r\n</div>\r\n<!--timeline end-->\r\n<div class=\"commonSpace\"></div>\r\n\r\n<div class=\"appDown ub ub-ver ub-ac\" v-on:click=\"download\">\r\n    <div class=\"ub-img appImage\"></div>\r\n    <div class=\"ub appText\">\r\n        <div>打开片刻APP</div>\r\n        <div class=\"appComma\">,</div>\r\n        <div>查看更多碎片</div>\r\n    </div>\r\n</div>\r\n\r\n<!-- 评论组件 -->\r\n<comment-cpt></comment-cpt>\r\n";
 
 /***/ }
 

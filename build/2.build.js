@@ -1,13 +1,12 @@
 webpackJsonp([2,6],{
 
-/***/ 6:
+/***/ 9:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	    template: __webpack_require__(7),
+	    template: __webpack_require__(10),
 	    data: function () {
-	        musicData = {};
-	        return musicData;
+	        return {};
 	    },
 	    computed: {
 	        musicUrl: function () {
@@ -37,6 +36,8 @@ webpackJsonp([2,6],{
 	                }, 1000);
 	            }, false);
 	            audio.addEventListener("ended", function () {
+	                self.isplay = 0;
+	                $('.radioTop').css('animation-play-state', 'paused');
 	                $('.radioPlay').removeClass('radioPlayF');
 	                $('.radioPlay').addClass('radioPlayT');
 	                $('.fiexedPlay').removeClass('fixedPauseIcon');
@@ -111,6 +112,12 @@ webpackJsonp([2,6],{
 	            }
 	        }
 	    },
+	    watch: {
+	        "text": function () {
+	            console.log('heheh');
+	            contentCols($('.musicContent'), 5);
+	        }
+	    },
 	    ready: function () {
 	
 	        var self = this;
@@ -124,24 +131,34 @@ webpackJsonp([2,6],{
 	                self.$options.methods.playStatus();
 	            }
 	        });
+	
 	        var id = self.$route.params.id;
-	        R.ajax({
-	            url: 'music/info.php',
-	            data: {
-	                contentid: id
-	            },
+	        $.ajax({
+	            url: 'src/views/music/data.json',
+	            dataType: 'json',
 	            success: function (data) {
-	                self.musicData = data;
+	                self.$data = data;
 	                self.$options.methods.playControl(); //歌曲播放控制
-	                contentCols($('.musicContent'), 5);
-	            }
+	            },
+	            error: function () {}
 	        });
+	        //R.ajax({
+	        //    url: 'music/info.php',
+	        //    data: {
+	        //        contentid: id
+	        //    },
+	        //    success: function (data) {
+	        //        self.musicData = data;
+	        //        self.$options.methods.playControl();  //歌曲播放控制
+	        //        contentCols($('.musicContent'), 5);
+	        //    }
+	        //});
 	    }
 	};
 
 /***/ },
 
-/***/ 7:
+/***/ 10:
 /***/ function(module, exports) {
 
 	module.exports = "<!--music start-->\r\n<audio id=\"audiosrc\" class=\"uhide\" v-bind:src=\"musicUrl\" controls=\"controls\">\r\n    Your browser does not support the audio element.\r\n</audio>\r\n\r\n<!--页面上滑到一定高度后显示播放效果-->\r\n<div class=\"fixedPlay ub ub-ac ub-pc uhide\">\r\n    <div class=\"ub-f1 ub-ver fixedTitle\">\r\n        <div class=\"ub-f1\">{{title}}</div>\r\n        <div class=\"ub-f1 fixedPlayTime\"><span class=\"musicPlayTimesC\">00 : 00</span> / <span\r\n                class=\"musicTime\">00 : 00</span></div>\r\n    </div>\r\n    <div class=\"ub-img fixedPlayIcon fiexedPlay\"></div>\r\n</div>\r\n\r\n<div class=\"ub ub-ver ub-ac ub-pc\">\r\n    <div class=\"musicTitle\">{{title}}</div>\r\n    <!--<div class=\"musicAuthor\">Pink Floyd</div>-->\r\n    <div class=\"musicPlayTime\"><span class=\"musicPlayTimesC\">00 : 00</span> / <span class=\"musicTime\">00 : 00</span>\r\n    </div>\r\n    <div class=\"ub musicTop ub-img ub-ac ub-pc\">\r\n        <div class=\"ub-img musicImgdefault musicImgWH\"></div>\r\n        <!--<img src=\"../../../assets/img/music.png\" class=\"musicImgWH\" alt=\"\">-->\r\n    </div>\r\n    <div class=\"ub-img radioPlay radioPlayT\"></div>\r\n    <div class=\"musicPlayNumbers\">播放: <span>2080</span></div>\r\n</div>\r\n<div class=\"music\">\r\n    {{title}}\r\n    <div class=\"playTime\">by:&nbsp; <span>{{userinfo.uname}}</span></div>\r\n    <hr class=\"musicHr\">\r\n    <div class=\"radioContent musicContent\">\r\n        {{text}}\r\n    </div>\r\n    <div class=\"more ub ub-ver ub-ac uhide\">\r\n        <div>查看全部</div>\r\n        <div class=\"ub-img moredown\"></div>\r\n    </div>\r\n</div>\r\n<!--music end-->\r\n\r\n<div class=\"commonSpace\"></div>\r\n\r\n<div class=\"appDown ub ub-ver ub-ac\" v-on:click=\"download\">\r\n    <div class=\"ub-img appImage\"></div>\r\n    <div class=\"ub appText\">\r\n        <div>打开片刻APP</div>\r\n        <div class=\"appComma\">,</div>\r\n        <div>收听更多高质音乐</div>\r\n    </div>\r\n</div>\r\n\r\n\r\n";

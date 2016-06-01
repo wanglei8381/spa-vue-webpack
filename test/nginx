@@ -1,0 +1,52 @@
+Last login: Wed Jun  1 20:37:35 on console
+junrudeAir:~ junru$ vim /usr/local/etc/nginx/nginx.conf
+junrudeAir:~ junru$ ps -ef|grep nginx
+  501  7613   485   0  9:44下午 ttys000    0:00.00 grep nginx
+junrudeAir:~ junru$ cd /usr/local/etc/nginx/
+junrudeAir:nginx junru$ ls
+fastcgi.conf		mime.types		servers
+fastcgi.conf.default	mime.types.default	uwsgi_params
+fastcgi_params		nginx.conf		uwsgi_params.default
+fastcgi_params.default	nginx.conf.default	win-utf
+koi-utf			scgi_params
+koi-win			scgi_params.default
+junrudeAir:nginx junru$ cd ..
+junrudeAir:etc junru$ ls
+bash_completion.d	nginx			openssl
+junrudeAir:etc junru$ sudo nginx
+Password:
+nginx: [emerg] unexpected ";" in /usr/local/etc/nginx/nginx.conf:49
+junrudeAir:etc junru$ cd nginx/
+junrudeAir:nginx junru$ ls
+fastcgi.conf		mime.types		servers
+fastcgi.conf.default	mime.types.default	uwsgi_params
+fastcgi_params		nginx.conf		uwsgi_params.default
+fastcgi_params.default	nginx.conf.default	win-utf
+koi-utf			scgi_params
+koi-win			scgi_params.default
+junrudeAir:nginx junru$ vim nginx.conf
+
+
+#user  nobody;
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+"nginx.conf" 121L, 2814C

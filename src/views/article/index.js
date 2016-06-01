@@ -1,29 +1,55 @@
 module.exports = {
+    activate: function (done) {
+        console.log('在router下activate不执行气人');
+    },
     template: require('./template.html'),
     data: function () {
-        return {info: articleData, cnt: articleContentData};
+        return {info:{},cnt:{}};
     },
     ready: function () {
         var self = this;
         var id = self.$route.params.id;
-        R.ajax({
-            url: 'article/info.php',
-            data: {
-                contentid: id
-            },
-            success: function (data) {
-                self.info = data;
-            }
+        var self = this;
+        fetch(function(info,cnt){
+            self.$data.info = info;
+            self.$data.cnt = cnt;
         });
-        R.ajax({
-            url: 'article/editableInfo.php',
-            data: {
-                id: id
-            },
-            success: function (data) {
-                self.cnt = data;
-                contentCols($('.articleContent'), 20);
-            }
-        });
+        //contentCols($('.articleContent'), 20);
     }
+}
+
+//获取数据
+function fetch(cb){
+    var info,cnt;
+    var count = 0;
+    var done = function(err){
+        count++;
+        if(count === 2) {
+            cb(info,cnt);
+        }
+    };
+
+    $.ajax({
+        url: 'src/views/article/data.json',
+        dataType: 'json',
+        success: function(data){
+            info = data;
+            done();
+        },
+        error: function(){
+            done();
+        }
+    });
+
+    $.ajax({
+        url: 'src/views/article/data2.json',
+        dataType: 'json',
+        success: function(data){
+            cnt = data;
+            done();
+        },
+        error: function(){
+            done();
+        }
+    });
 }
