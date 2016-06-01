@@ -1,11 +1,7 @@
 //设置一个全局变量
 var serverUrl = 'http://api.pianke.me/version4.0/';
 var R = {
-    dataUrl: function (url) {
-        return serverUrl + url + "?sig=" + sign;
-    },
     ajax: function (options) {
-
         var d = new Date();
         var timestamp = d.getFullYear() + '' + dateForm(d.getMonth() + 1) + d.getDate() + '' + d.getHours() + '' + d.getMinutes() + '' + d.getSeconds();
         var Authorization = $.base64.encode('0:' + timestamp);
@@ -19,22 +15,22 @@ var R = {
         options.type = options.type || 'post';
         options.dataType = options.dataType || 'json';
         options.headers = headers;
-        options.url = R.dataUrl(options.url);
+        options.url = serverUrl + options.url + "?sig=" + sign;
         var success = options.success;
         var error = options.error;
         options.success = function (req) {
             try {
                 if (req.code > 0) {
-                    alert('出错')
+                    console.log('出错')
                 } else {
                     success(req.data);
                 }
             } catch (e) {
-                alert('数据解析出错');
+                console.log('数据解析出错');
             }
         };
         options.error = function () {
-            alert('网络错误');
+            console.log('网络错误');
         };
         $.ajax(options);
     }

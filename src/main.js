@@ -1,6 +1,7 @@
 var Vue = require('vue');
 var VueRouter = require('vue-router');
 
+
 // 安装路由模块
 Vue.use(VueRouter);
 

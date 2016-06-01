@@ -1,6 +1,6 @@
 
 <!--radio start-->
-<audio id="audiosrc" class="uhide" src="" controls="controls">
+<audio id="audiosrc" class="uhide" controls="controls" v-bind:src="info.musicUrl">
     Your browser does not support the audio element.
 </audio>
 
@@ -16,21 +16,24 @@
 
 <div class="ub ub-ver ub-ac ub-pc">
     <div class="ub radioTop ub-img ub-ac ub-pc">
-        <img src="" class="musicImgWH" alt="">
+        <img v-bind:src="info.imgUrl" class="musicImgWH" alt="">
     </div>
     <div class="ub-img radioPlay2 radioPlayT"></div>
     <div class="playTime"><span class="musicPlayTimesC">00 : 00</span> / <span class="musicTime">00 : 00</span></div>
-    <div class="radioTitle titleR"></div>
-    <div class="radioAnchor">主播: <span class="Anchor"></span></div>
+    <div class="radioTitle">{{info.title}}</div>
+    <div class="radioAnchor">主播: <span>{{info.userinfo.uname}}</span></div>
 </div>
-<div class="playNumbers">播放: <span class="plays"></span></div>
+<div class="playNumbers">播放: <span>{{info.plays}}</span></div>
 
 <div class="commonSpace"></div>
 
 <div class="radio">
-    <div class="radioContentAuthor">文:&nbsp;by&nbsp; <span class="spaceName"></span></div>
+    <div class="radioContentAuthor">文:&nbsp;by&nbsp; <span>{{info.collInfo.spaceName}}</span></div>
     <hr class="radioHr">
     <div class="radioContent">
+        <p v-for="item in cnt.content">
+          {{item.content}}
+        </p>
     </div>
     <div class="more ub ub-ver ub-ac uhide">
         <div>查看全部</div>
@@ -41,7 +44,7 @@
 
 <div class="commonSpace"></div>
 
-<div class="appDown ub ub-ver ub-ac">
+<div class="appDown ub ub-ver ub-ac" v-on:click="download">
     <div class="ub-img appImage"></div>
     <div class="ub appText">
         <div>打开片刻APP</div>
