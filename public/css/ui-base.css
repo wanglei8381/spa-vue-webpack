@@ -1,0 +1,97 @@
+/**
+ *
+ *
+ *
+ */
+.ub
+{
+    display: -webkit-box !important;
+    display: -moz-box !important;
+    display: box !important;
+    position:relative;
+}
+
+.ub-ver
+{
+    -webkit-box-orient:vertical;
+    -moz-box-orient:vertical;
+    box-orient:vertical;
+}
+
+.ub-ac
+{
+    -webkit-box-align:center;
+    -moz-box-align:center;
+    box-align:center;
+}
+
+.ub-ae
+{
+    -webkit-box-align:end;
+    -moz-box-align:end;
+    box-align:end;
+}
+
+.ub-pc
+{
+    -webkit-box-pack:center;
+    -moz-box-pack:center;
+    box-pack:center;
+}
+
+.ub-pe
+{
+    -webkit-box-pack:end;
+    -moz-box-pack:end;
+    box-pack:end;
+}
+
+.ub-f1
+{
+    position:relative;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    box-flex: 1;
+}
+
+.ub-f2
+{
+    position:relative;
+    -webkit-box-flex: 2;
+    -moz-box-flex: 2;
+    box-flex: 2;
+}
+
+.ub-img
+{
+    -webkit-background-size:contain;
+    -moz-background-size:contain;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+}
+
+.tx-l {
+    text-align: left;
+}
+
+.tx-r {
+    text-align: right;
+}
+
+.tx-c {
+    text-align: center;
+}
+
+.uhide {
+    display: none !important;
+}
+.ut-s {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap !important;
+    outline: 0 !important
+}
+
+
+

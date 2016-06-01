@@ -1,21 +1,19 @@
 //设置一个全局变量
 var serverUrl = 'http://api.pianke.me/version4.0/';
+var d = new Date();
+var timestamp = d.getFullYear() + '' + dateForm(d.getMonth() + 1) + d.getDate() + '' + d.getHours() + '' + d.getMinutes() + '' + d.getSeconds();
+var Authorization = $.base64.encode('0:' + timestamp);
+console.log(Authorization)
+console.log(timestamp)
+var sign = $.md5('0' + timestamp).toUpperCase();
+var headers = {
+    'Authorization': Authorization
+}
 var R = {
     dataUrl: function (url) {
         return serverUrl + url + "?sig=" + sign;
     },
     ajax: function (options) {
-
-        var d = new Date();
-        var timestamp = d.getFullYear() + '' + dateForm(d.getMonth() + 1) + d.getDate() + '' + d.getHours() + '' + d.getMinutes() + '' + d.getSeconds();
-        var Authorization = $.base64.encode('0:' + timestamp);
-        console.log(Authorization)
-        console.log(timestamp)
-        var sign = $.md5('0' + timestamp).toUpperCase();
-        var headers = {
-            'Authorization': Authorization
-        }
-
         options.type = options.type || 'post';
         options.dataType = options.dataType || 'json';
         options.headers = headers;
@@ -64,7 +62,6 @@ function topicCols(data) {
 function contentCols(dom, cols) {
     var lineHeight = dom.css("line-height").toString().substr(0,2);
     var contentHeight = dom.height();
-
     if (contentHeight / lineHeight > cols) {
         dom.height(lineHeight * cols);
         dom.css("overflow", "hidden");

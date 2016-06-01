@@ -1,0 +1,586 @@
+html {
+    font-size: 20px;
+}
+
+body {
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    background-color: #ffffff;
+    font-family: 'PingFangSC_R3a53c6c475fc9';
+}
+
+/*------->common*/
+/*旋转动画定义*/
+.playAnimation{
+    /* 以下是动画设置 */
+    animation: circleAnimation 5s linear infinite;
+    -webkit-animation: circleAnimation 5s linear infinite;
+}
+@keyframes circleAnimation {
+    0%   {transform:rotate(0deg);-webkit-transform:rotate(0deg);}
+    100% {transform:rotate(360deg);-webkit-transform:rotate(360deg);}
+}
+
+@-webkit-keyframes circleAnimation {
+    0%   {transform:rotate(0deg);-webkit-transform:rotate(0deg);}
+    100% {transform:rotate(360deg);-webkit-transform:rotate(360deg);}
+}
+/*底部固定导航*/
+.footer {
+    position: fixed !important;
+    bottom: 0px;
+    width: 100%;
+    box-shadow: 0 -3px 0.225rem 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.logo {
+    background-image: url("../img/logo.png");
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.95rem;
+    margin: 0.5rem 0.5rem 0.5rem 1rem;
+}
+
+.footerFontS {
+    font-size: 0.55rem;
+}
+
+.footerDown {
+    color: #ffffff;
+    font-size: 0.65rem;
+    background-color: #55B769;
+    box-shadow: 0 4px 5px 0 rgba(111, 170, 113, 0.46);
+    padding: 0.4rem 1rem;
+    margin-right: 0.8rem;
+    border-radius: 2px;
+}
+
+/*短横线*/
+.minHr {
+    margin-top: 1.675rem;
+    margin-bottom: 1.475rem;
+    width: 3.4625rem;
+    height: 1px;
+    background-color: #9F9584;
+    border: 0;
+}
+
+/*查看更多*/
+.more {
+    margin-top: .5rem; /*60*/
+    color: #6FAA71;
+    font-size: 0.75rem;
+}
+
+.moredown {
+    background-image: url("../img/downImg.png");
+    width: 0.525rem; /*21*/
+    height: 0.3rem; /*12*/
+}
+
+/*长分割*/
+.commonSpace {
+    background-color: #FBFBFB;
+    height: 0.55rem;
+    border-top: 1px solid #E0E0E0;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+/*APP下载*/
+.appDown {
+    padding: 1.525rem 0 1.8rem 0;
+}
+
+.appImage {
+    background-image: url("../img/appIcon.png");
+    width: 0.9rem;
+    height: 1.4rem;
+}
+
+.appText {
+    color: #6FAA71;
+    font-size: 0.75rem; /*30*/
+    padding-top: 0.65rem;
+}
+
+.appComma {
+    padding: 0 0.25rem;
+}
+
+/*标题*/
+.titleB {
+    color: #4A4A4A;
+    font-size: 0.8rem; /*32*/
+    margin-bottom: 1px;
+    font-weight: bold;
+}
+
+.titleS {
+    color: #9B9B9B;
+    font-size: 0.35rem; /*14*/
+}
+
+/*热门*/
+.hot {
+    margin: 0 0.8rem 0.8rem 0.8rem;
+}
+
+.hotBottom {
+    margin-bottom: 4.5rem;
+}
+
+.hotTitle {
+    padding: 0.9rem 0 0.55rem 0;
+}
+
+.hotLine {
+    margin-top: 0.225rem;
+    width: 2.2525rem;
+    height: 0.2rem;
+    background-color: #4A4A4A;
+}
+
+.hotContent {
+    background-color: #FBFBFB;
+    color: #4A4A4A;
+    font-size: 0.8rem;
+    padding: 1.025rem 0.95rem;
+    margin-top: 0.35rem;
+    line-height: 1.125rem;
+}
+
+.hotTing {
+    width: 5.5rem;
+}
+
+.hotTing img {
+    display: block;
+}
+
+.hotTimgB {
+    margin: 0 0.6375rem 0.8rem 0.6375rem;
+}
+
+.hotMarginLR {
+    margin: 0 0.1625rem;
+}
+
+.hotMarginTB {
+    margin: 0.35rem 0;
+}
+
+.hotMarginMusicTB {
+    margin: 0.6rem 0;
+}
+
+.hotPaddL {
+    padding-left: 0.475rem;
+}
+
+.hotContentTing {
+    width: 100%;
+    font-size: 0.7rem;
+    color: #333333;
+    padding: 0.625rem 0 0.625rem 0;
+    text-align: center;
+    background-color: #FBFBFB;
+}
+
+.hotTopic {
+    width: 6.25rem;
+    height: 3.125rem;
+}
+
+.hotMusic {
+    width: 2.3rem;
+    height: 2.35rem;
+}
+
+.hotMusicPlay {
+    background-image: url("../img/hotMusicPlay.png");
+    width: 0.75rem;
+    height: 0.85rem;
+    padding-right: 1.275rem;
+}
+
+.hotCotentTopic {
+    background-color: #FBFBFB;
+    padding: 0.875rem 0rem 1rem 0.475rem;
+    color: #4A4A4A;
+    font-size: 0.8rem;
+}
+
+/*comments*/
+.comment {
+    padding: 0 0.8rem; /*32*/
+}
+
+.commentTitle {
+    margin-bottom: 1.2rem; /*48*/
+    margin-top: 1.075rem; /*43*/
+    padding-left: 0.25rem; /*10*/
+    border-left: #4A4A4A solid 0.2rem; /*8*/
+}
+
+.praise {
+    width: 1rem;
+    padding-left: 0.45rem;
+    color: #CCCCCC;
+}
+
+.praiseImg {
+    background-image: url("../img/praise.png");
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+.commentUserIcon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
+
+.commentUserName {
+    color: #616263;
+    padding-left: 0.5rem;
+}
+
+.commentBody {
+    font-size: 0.8rem; /*32*/
+    border-top: 1px solid #F1F1F1;
+    padding: 1.25rem 0;
+}
+
+.commentContent {
+    padding-top: 0.425rem;
+    color: #A8A9AA;
+    line-height: 1rem;
+}
+
+/*固定播放按钮*/
+.fixedPlay {
+    position: fixed !important;
+    z-index: 999;
+    top: 0px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    font-size: 0.65rem;
+}
+
+.fixedPlayTime {
+    color: #ABABAB;
+    font-size: 0.55rem;
+    margin-top: 0.25rem;
+}
+
+.fixedTitle {
+    padding-left: 0.725rem;
+}
+
+.fixedPlayIcon {
+    background-image: url("../img/radioPlay.png");
+    width: 2.45rem;
+    height: 2.45rem;
+}
+
+.fixedPauseIcon {
+    background-image: url("../img/radioPause.png");
+    width: 2.45rem;
+    height: 2.45rem;
+}
+
+/*------->article*/
+.articleMarginLR {
+    margin: 0 0.9rem; /*36*/
+}
+
+.article {
+    padding: 1.8rem 0.8rem; /*72 32*/
+    line-height: 1.675rem; /*67*/
+}
+
+.articleTop {
+    z-index: -1;
+    width: 100%;
+}
+
+.articleTitle {
+    color: #333333;
+    font-size: 1.2rem; /*48*/
+    text-align: center;
+    font-weight: bold;
+}
+
+.articleAuthor {
+    font-size: 0.55rem; /*22*/
+    padding-top: 0.75rem; /*30*/
+    color: #CCCCCC;
+}
+
+.articleAColor {
+    color: #ABABAB;
+}
+
+.articleDes {
+    color: #9F9584;
+    font-size: 0.8rem; /*32*/
+}
+
+/*.articlePlay {
+    margin-top: -1.1rem; !*50*!
+    border: 0.1rem solid #fff;
+    border-radius: 50%;
+    background-color: #fff;
+    background-image: url("../img/play.png");
+    width: 2rem; !*80*!
+    height: 2rem;
+}*/
+
+.articleContent {
+    color: #444335;
+    font-size: 0.9rem;
+    margin-top: 1.55rem; /*62*/
+}
+
+/*------->radio*/
+.radio {
+    padding: 0.9rem 1.6rem; /*72 32*/
+    line-height: 1.45rem; /*58*/
+}
+
+.radioContentAuthor {
+    color: #ABABAB;
+    font-size: 0.7rem;
+}
+
+.radioHr {
+    width: 4.3rem;
+    height: 1px;
+    background-color: #9F9584;
+    border: 0;
+    margin-top: 0.75rem;
+    margin-bottom: 0.625rem;
+    -webkit-margin-start: 0;
+}
+
+.radioContent {
+    color: #797979;
+    font-size: 0.8rem;
+}
+
+.radioTop {
+    margin: 2.75rem 0 1.35rem 0;
+    background-image: url("../img/musicBg.png");
+    width: 12.5rem;
+    height: 12.5rem;
+}
+.radioPlay2 {
+    background-size: 100%;
+    width: 3.25rem;
+    height: 3.25rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -1.625rem;
+    margin-top: -2.4rem;
+    display: block;
+}
+.radioPlay {
+    background-size: 100%;
+    width: 3.25rem;
+    height: 3.25rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -1.625rem;
+    margin-top: -1.625rem;
+    display: block;
+}
+.radioPlayT{
+    background-image: url("../img/play.png");
+}
+.radioPlayF{
+    background-image: url("../img/pause.png");
+}
+
+/*.articlePlay {
+    margin-top: -1.1rem; !*50*!
+    border: 0.1rem solid #fff;
+    border-radius: 50%;
+    background-color: #fff;
+    background-image: url("../img/play.png");
+    width: 2rem; !*80*!
+    height: 2rem;
+}*/
+
+.playTime {
+    color: #ABABAB;
+    font-size: 0.55rem;
+}
+
+.radioTitle {
+    color: #444335;
+    font-size: 1rem;
+    margin: 0.475rem 0 0.6rem 0;
+}
+
+.radioAnchor {
+    color: #616263;
+    font-size: 0.7rem;
+}
+
+.playNumbers {
+    color: #ABABAB;
+    font-size: 0.55rem;
+    margin: 1.6rem 0.9rem 0.5rem 0;
+    text-align: right;
+}
+
+/*------->music*/
+.music {
+    padding: 0 1.6rem 1.2rem 1.6rem; /*72 32*/
+    line-height: 1.45rem; /*58*/
+}
+
+.musicHr {
+    width: 4.3rem;
+    height: 1px;
+    background-color: #9F9584;
+    border: 0;
+    margin-top: 0.675rem;
+    margin-bottom: 0.625rem;
+    -webkit-margin-start: 0;
+}
+
+.musicImgWH {
+    border-radius: 50%;
+    width: 9rem;
+    height: 9rem;
+    display: block;
+}
+
+.musicTop {
+    background-image: url("../img/musicBg.png");
+    width: 12.5rem;
+    height: 12.5rem;
+}
+
+.musicTitle {
+    margin: 1.35rem 0 0.15rem 0;
+    color: #444335;
+    font-size: 0.95rem;
+}
+
+.musicAuthor {
+    color: #666666;
+    font-size: 0.75rem;
+}
+
+.musicPlayTime {
+    margin: 0.575rem 0 0.75rem 0;
+    color: #ABABAB;
+    font-size: 0.55rem;
+}
+
+.musicPlayNumbers {
+    margin: 1.15rem 0 3.025rem 0;
+    color: #CCCCCC;
+    font-size: 0.55rem;
+}
+
+/*------->topic*/
+.topicMarks {
+    background-image: url("../img/topicMarks.png");
+    width: 1.05rem;
+    height: 0.925rem;
+}
+
+.topic {
+    padding: 0.9rem 0.9rem 1.5rem 0.9rem;
+    line-height: 1.625rem; /*65*/
+}
+
+.joinPerson {
+    font-size: 0.55rem;
+    color: #333333;
+    margin-left: 0.5rem;
+}
+
+.topicHr {
+    margin-top: 0.65rem;
+    margin-bottom: 1.7rem;
+    height: 1px;
+    background-color: rgba(159, 149, 132, 0.2);
+    border: 0;
+}
+
+.topicTitle {
+    margin: 0.1rem 0 0.85rem 0;
+    color: #333333;
+    font-size: 1.45rem;
+}
+
+.topicContent {
+    color: #444335;
+    font-size: 0.8rem;
+}
+
+.topicAdmin {
+    color: #333333;
+    font-size: 0.6rem;
+    margin: 0 0.475rem;
+}
+
+.topicType {
+    color: #E8A956;
+    font-size: 0.5rem;
+    padding: 0.05rem 0.3rem 0 0.3rem;
+    border-radius: 2px;
+    border: 1px solid #E8A956;
+}
+
+/*------->download*/
+.downloadLogoImg {
+    background-image: url("../img/downloadLogo.png");
+    width: 5.36rem;
+    height: 2.36rem;
+    margin-top: 3.72rem;
+    margin-bottom: 2.95rem;
+}
+
+.downloadCenImg {
+    background-image: url("../img/downloadCenImg.png");
+    width: 14rem;
+    height: 14rem;
+}
+
+.marginIOS {
+    margin: 2rem 0 1rem 0;
+}
+
+.downloadIOS {
+    background-image: url("../img/downloadIos.png");
+    width: 7.09rem;
+    height: 1.878rem;
+}
+
+.downloadAnd {
+    background-image: url("../img/downloadAndroid.png");
+    width: 7.09rem;
+    height: 1.878rem;
+}
+
+.downloadWord {
+    background-image: url("../img/downloadWord.png");
+    width: 9.545rem;
+    height: 6.3rem;
+    margin: -0.75rem 0 0 -0.75rem;
+}
+
+.download {
+    padding-bottom: 3.554rem;
+}
