@@ -1,12 +1,12 @@
 <!--music start-->
-<audio id="audiosrc" class="uhide" src="" controls="controls">
+<audio id="audiosrc" class="uhide" v-bind:src="musicUrl" controls="controls">
     Your browser does not support the audio element.
 </audio>
 
 <!--页面上滑到一定高度后显示播放效果-->
 <div class="fixedPlay ub ub-ac ub-pc uhide">
     <div class="ub-f1 ub-ver fixedTitle">
-        <div class="ub-f1 titleM">白兰鸽巡游记-丢火车</div>
+        <div class="ub-f1">{{title}}</div>
         <div class="ub-f1 fixedPlayTime"><span class="musicPlayTimesC">00 : 00</span> / <span
                 class="musicTime">00 : 00</span></div>
     </div>
@@ -14,21 +14,23 @@
 </div>
 
 <div class="ub ub-ver ub-ac ub-pc">
-    <div class="musicTitle titleM">Keep Talking (Radio Edit)</div>
+    <div class="musicTitle">{{title}}</div>
     <!--<div class="musicAuthor">Pink Floyd</div>-->
     <div class="musicPlayTime"><span class="musicPlayTimesC">00 : 00</span> / <span class="musicTime">00 : 00</span>
     </div>
     <div class="ub musicTop ub-img ub-ac ub-pc">
-        <!--<img src="img/music.png" class="musicImgWH" alt="">-->
+        <div class="ub-img musicImgdefault musicImgWH"></div>
+        <!--<img src="../../../assets/img/music.png" class="musicImgWH" alt="">-->
     </div>
     <div class="ub-img radioPlay radioPlayT"></div>
     <div class="musicPlayNumbers">播放: <span>2080</span></div>
 </div>
 <div class="music">
-    <div class="musicTitleText"></div>
-    <div class="playTime">by:&nbsp; <span class="musicUser">Lioncatjune</span></div>
+    {{title}}
+    <div class="playTime">by:&nbsp; <span>{{userinfo.uname}}</span></div>
     <hr class="musicHr">
     <div class="radioContent musicContent">
+        {{text}}
     </div>
     <div class="more ub ub-ver ub-ac uhide">
         <div>查看全部</div>
@@ -39,7 +41,7 @@
 
 <div class="commonSpace"></div>
 
-<div class="appDown ub ub-ver ub-ac">
+<div class="appDown ub ub-ver ub-ac" v-on:click="download">
     <div class="ub-img appImage"></div>
     <div class="ub appText">
         <div>打开片刻APP</div>

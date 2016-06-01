@@ -543,6 +543,12 @@ body {
     border: 1px solid #E8A956;
 }
 
+/*------->timeline*/
+.timeline {
+    padding:0 0.8rem 1.8rem 0.8rem; /*72 32*/
+    line-height: 1.675rem; /*67*/
+}
+
 /*------->download*/
 .downloadLogoImg {
     background-image: url("../img/downloadLogo.png");

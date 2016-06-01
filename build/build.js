@@ -43,7 +43,7 @@ webpackJsonp([0,6],[
 	// 路由器需要一个根组件。
 	var App = Vue.extend({
 	    data: function () {
-	        return { title: '首頁' };
+	        return { title: '微信分享' };
 	    }
 	});
 	
