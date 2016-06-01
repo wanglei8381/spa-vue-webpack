@@ -20,11 +20,11 @@
     <hr class="minHr">
     <div class="articleDes"></div>
     <div class="articleContent">
-        <p v-for="item in minContent">
-            {{ item.content }}
+        <p v-for="item in cnt.content">
+            {{{ item.content }}}
         </p>
     </div>
-    <div v-on:click="showAll" class="more ub ub-ver ub-ac {{uhide}}">
+    <div class="more ub ub-ver ub-ac uhide">
         <div>查看全部</div>
         <div class="ub-img moredown"></div>
     </div>

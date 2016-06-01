@@ -68,6 +68,7 @@ function topicCols(data) {
 function contentCols(dom, cols) {
     var lineHeight = dom.css("line-height").toString().substr(0,2);
     var contentHeight = dom.height();
+
     if (contentHeight / lineHeight > cols) {
         dom.height(lineHeight * cols);
         dom.css("overflow", "hidden");

@@ -1,9 +1,9 @@
 module.exports = {
     template: require('./template.html'),
     data: function () {
-        return {info: articleData, cnt: articleContentData, offset: 20};
+        return {info: articleData, cnt: articleContentData};
     },
-    computed: {
+    /*computed: {
         uhide: function () {
             return this.cnt.content.length > 20 ? '' : 'uhide';
         },
@@ -15,13 +15,7 @@ module.exports = {
         'showAll': function (e) {
             this.offset = this.cnt.content.length;
         }
-    },
-    ready: function(){
-        console.log('ready');
-        $('.articleContent').click(function(){
-            alert(1)
-        })
-    },
+    },*/
     aync: function(){
         var self = this;
         $.ajax({
@@ -29,5 +23,8 @@ module.exports = {
                 self.info = data;
             }
         });
+    },
+    ready: function(){
+        contentCols($('.articleContent'), 20);
     }
 }
