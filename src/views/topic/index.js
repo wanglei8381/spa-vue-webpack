@@ -3,6 +3,9 @@ module.exports = {
     data: function () {
         return {};
     },
+    route: {
+        canReuse:false,
+    },
     watch: {
         "html": function () {
             var topicContent = $('.topicContent').html();
@@ -17,6 +20,7 @@ module.exports = {
         }
     },
     ready: function () {
+        window.scrollTo(0, -100);
         var self = this;
         var id = self.$route.params.id;
         R.ajax({

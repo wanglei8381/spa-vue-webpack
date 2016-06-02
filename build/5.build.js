@@ -8,6 +8,9 @@ webpackJsonp([5,6],{
 	    data: function () {
 	        return {};
 	    },
+	    route: {
+	        canReuse: false
+	    },
 	    methods: {
 	        'download': function (e) {
 	            var u = navigator.userAgent;
@@ -19,6 +22,7 @@ webpackJsonp([5,6],{
 	        }
 	    },
 	    ready: function () {
+	        window.scrollTo(0, -100);
 	        var self = this;
 	        var id = self.$route.params.id;
 	        R.ajax({

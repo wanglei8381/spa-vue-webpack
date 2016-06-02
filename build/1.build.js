@@ -8,6 +8,9 @@ webpackJsonp([1,6],{
 	    data: function () {
 	        return {};
 	    },
+	    route: {
+	        canReuse: false
+	    },
 	    watch: {
 	        "html": function () {
 	            var topicContent = $('.topicContent').html();
@@ -22,6 +25,7 @@ webpackJsonp([1,6],{
 	        }
 	    },
 	    ready: function () {
+	        window.scrollTo(0, -100);
 	        var self = this;
 	        var id = self.$route.params.id;
 	        R.ajax({

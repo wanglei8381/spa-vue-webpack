@@ -3,6 +3,9 @@ module.exports = {
     data: function () {
         return {};
     },
+    route: {
+        canReuse:false,
+    },
     computed: {
         musicUrl: function () {
             return 'http://mhp.sturgeon.mopaas.com/resolve/xm.php/?id=' + this.songid;
@@ -113,6 +116,7 @@ module.exports = {
         }
     },
     ready: function () {
+        window.scrollTo(0, -100);
         var self = this;
         $(window).scroll(function () {
             var a = document.body.scrollTop;

@@ -8,7 +8,9 @@ webpackJsonp([4,6],{
 	    data: function () {
 	        return { info: {}, cnt: {} };
 	    },
-	    computed: {},
+	    route: {
+	        canReuse: false
+	    },
 	    methods: {
 	        'isplay': 0,
 	        'download': function (e) {
@@ -114,6 +116,7 @@ webpackJsonp([4,6],{
 	        }
 	    },
 	    ready: function () {
+	        window.scrollTo(0, -100);
 	        var self = this;
 	        $(window).scroll(function () {
 	            var a = document.body.scrollTop;

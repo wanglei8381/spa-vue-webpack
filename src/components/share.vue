@@ -45,7 +45,7 @@
             <template v-for="item in topicArr">
 
                 <div class="ub ub-ac hotCotentTopic hotMarginTB hotTopicItem"
-                     v-link="{ name:'topic',params: {id:item.id} }" v-on:click="goto('topic',item.id)">
+                     v-link="{name:'topic',params: {id:item.id}}">
                     <div class="ub">
                         <img v-bind:src="item.coverimg" class="hotTopic" alt="">
                     </div>
@@ -105,10 +105,6 @@
                 } else if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
                     window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client&g_f=995016');
                 }
-            },
-            'goto': function(a,b){
-                console.log("mmmmmmmmmmmm");
-                window.router.go("/" + a + "/" + b);
             }
         },
         ready: function () {

@@ -3,7 +3,9 @@ module.exports = {
     data: function () {
         return {info: {}, cnt: {}};
     },
-    computed: {},
+    route: {
+        canReuse:false,
+    },
     methods: {
         'isplay': 0,
         'download': function (e) {
@@ -109,6 +111,7 @@ module.exports = {
         }
     },
     ready: function () {
+        window.scrollTo(0, -100);
         var self = this;
         $(window).scroll(function () {
             var a = document.body.scrollTop;
