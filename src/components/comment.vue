@@ -13,7 +13,7 @@
                     <div class="ub ub-ver commentBody">
                         <div class="ub ub-ac">
                             <div class="ub">
-                                <img :src="item.userinfo.icon" class="commentUserIcon" alt="">
+                                <img :src="item.userinfo.icon" class="commentUserIcon userIconDefault" alt="">
                             </div>
                             <div class="ub-f1 commentUserName">{{item.userinfo.uname}}</div>
                             <div class="ub ub-pe">
@@ -80,11 +80,11 @@
                 success: function (data) {
                     if (data.length == 0) {
                         $('.allComments').addClass('uhide')
-                    }else if(data.length < 3){
+                    } else if (data.length < 3) {
                         self.list = data
-                    }else{
+                    } else {
                         $('.appDown').removeClass('uhide')
-                        $('.commentsL').html(data.length-3);
+                        $('.commentsL').html(data.length - 3);
                         self.list = data.splice(0, 3);
                     }
                 }

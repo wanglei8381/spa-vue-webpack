@@ -4,7 +4,7 @@ module.exports = {
         return {};
     },
     route: {
-        canReuse:false,
+        canReuse: false,
     },
     watch: {
         "html": function () {

@@ -1,5 +1,5 @@
 //设置一个全局变量
-var serverUrl = '/version4.0/';
+var serverUrl = 'http://api.pianke.me/version4.0/';
 var R = {
     ajax: function (options) {
         var d = new Date();
