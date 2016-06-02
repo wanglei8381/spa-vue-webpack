@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 // 创建一个路由器实例
 var router = new VueRouter({
 });
-
+window.pagedata= false;
 router.map({
     '/topic/:id': {
         name: 'topic',
@@ -16,21 +16,25 @@ router.map({
         }
     },
     '/music/:id': {
+        name: 'music',
         component: function (resolve) {
             require(['./views/music'], resolve);
         }
     },
     '/article/:id': {
+        name: 'article',
         component: function (resolve) {
             require(['./views/article'], resolve);
         }
     },
     '/radio/:id': {
+        name: 'radio',
         component: function (resolve) {
             require(['./views/radio'], resolve);
         }
     },
     '/timeline/:id': {
+        name: 'timeline',
         component: function (resolve) {
             require(['./views/timeline'], resolve);
         }
@@ -39,10 +43,11 @@ router.map({
 
 //全局组件
 Vue.component('comment-cpt', require('./components/comment.vue'));
+Vue.component('share-cpt', require('./components/share.vue'));
 
 // 路由器需要一个根组件。
 var App = Vue.extend({
-    data: function(){
+    data: function() {
         return {title: '微信分享'};
     }
 });

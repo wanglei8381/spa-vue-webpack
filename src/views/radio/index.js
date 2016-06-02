@@ -1,7 +1,7 @@
 module.exports = {
     template: require('./template.html'),
     data: function () {
-        return {info: tingData, cnt: tingArticleData};
+        return {info: {}, cnt: {}};
     },
     computed: {},
     methods: {
@@ -101,19 +101,11 @@ module.exports = {
                 $('.fiexedPlay').removeClass('fixedPauseIcon');
                 $('.fiexedPlay').addClass('fixedPlayIcon');
             }
-        },
-        'showTingArticleInfo': function (id) {
-            var self = this;
-            R.ajax({
-                url: 'article/editableInfo.php',
-                data: {
-                    id: id
-                },
-                success: function (data) {
-                    self.cnt = data;
-                    contentCols($('.radioContent'), 20);  //歌曲内容行数控制
-                }
-            });
+        }
+    },
+    watch: {
+        "cnt.content": function () {
+            contentCols($('.radioContent'), 20);
         }
     },
     ready: function () {
@@ -138,8 +130,16 @@ module.exports = {
                 self.info = data;
                 var idIndex = data.webview_url.lastIndexOf('/');
                 var tingAriticleId = data.webview_url.substring(idIndex + 1);
-                self.$options.methods.showTingArticleInfo(tingAriticleId);//获取原文
                 self.$options.methods.playControl();  //歌曲播放控制
+                R.ajax({
+                    url: 'article/editableInfo.php',
+                    data: {
+                        id: tingAriticleId
+                    },
+                    success: function (data) {
+                        self.cnt = data;
+                    }
+                });
             }
         });
     }

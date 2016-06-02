@@ -1,8 +1,20 @@
 module.exports = {
     template: require('./template.html'),
     data: function () {
-        //topicData={}
-        return topicData;
+        return {};
+    },
+    watch: {
+        "html": function () {
+            var topicContent = $('.topicContent').html();
+            $('.topicContent').html(topicCols(topicContent).shortHtml);//话题内容
+            if (topicCols(topicContent).dataLenght > 5) {
+                $('.more').removeClass('uhide');
+            }
+            $('.more').click(function () {
+                $('.topicContent').html(topicContent);//话题内容
+                $('.more').addClass('uhide');
+            })
+        }
     },
     ready: function () {
         var self = this;
@@ -13,16 +25,7 @@ module.exports = {
                 contentid: id
             },
             success: function (data) {
-                self.topicData = data;
-                var topicContent = $('.topicContent').html();
-                $('.topicContent').html(topicCols(topicContent).shortHtml);//话题内容
-                if (topicCols(topicContent).dataLenght > 5) {
-                    $('.more').removeClass('uhide');
-                }
-                $('.more').click(function () {
-                    $('.topicContent').html(topicData.html);//话题内容
-                    $('.more').addClass('uhide');
-                })
+                self.$data = data;
             }
         });
     }

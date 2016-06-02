@@ -1,55 +1,38 @@
 module.exports = {
-    activate: function (done) {
-        console.log('在router下activate不执行气人');
-    },
     template: require('./template.html'),
     data: function () {
-        return {info:{},cnt:{}};
+        return {info: {}, cnt: {}};
+    },
+    watch: {
+        "cnt.content": function () {
+            contentCols($('.articleContent'), 20);
+        },
+        "info.coverimg": function (val) {
+            if (val == '') {
+                $('.articleImage').addClass('uhide');
+            }
+        }
     },
     ready: function () {
         var self = this;
         var id = self.$route.params.id;
-        var self = this;
-        fetch(function(info,cnt){
-            self.$data.info = info;
-            self.$data.cnt = cnt;
+        R.ajax({
+            url: 'article/info.php',
+            data: {
+                contentid: id
+            },
+            success: function (data) {
+                self.info = data;
+            }
         });
-        //contentCols($('.articleContent'), 20);
+        R.ajax({
+            url: 'article/editableInfo.php',
+            data: {
+                id: id
+            },
+            success: function (data) {
+                self.cnt = data;
+            }
+        });
     }
-}
-
-//获取数据
-function fetch(cb){
-    var info,cnt;
-    var count = 0;
-    var done = function(err){
-        count++;
-        if(count === 2) {
-            cb(info,cnt);
-        }
-    };
-
-    $.ajax({
-        url: 'src/views/article/data.json',
-        dataType: 'json',
-        success: function(data){
-            info = data;
-            done();
-        },
-        error: function(){
-            done();
-        }
-    });
-
-    $.ajax({
-        url: 'src/views/article/data2.json',
-        dataType: 'json',
-        success: function(data){
-            cnt = data;
-            done();
-        },
-        error: function(){
-            done();
-        }
-    });
 }

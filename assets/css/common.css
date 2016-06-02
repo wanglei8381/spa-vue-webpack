@@ -462,6 +462,9 @@ body {
     height: 9rem;
     display: block;
 }
+.musicImgdefault{
+    background-image: url("../img/music.png");
+}
 
 .musicTop {
     background-image: url("../img/musicBg.png");

@@ -109,12 +109,10 @@ module.exports = {
     },
     watch: {
         "text": function () {
-            console.log('heheh')
             contentCols($('.musicContent'), 5);
         }
     },
     ready: function () {
-
         var self = this;
         $(window).scroll(function () {
             var a = document.body.scrollTop;
@@ -128,26 +126,15 @@ module.exports = {
         });
 
         var id = self.$route.params.id;
-        $.ajax({
-            url: 'src/views/music/data.json',
-            dataType: 'json',
+        R.ajax({
+            url: 'music/info.php',
+            data: {
+                contentid: id
+            },
             success: function (data) {
                 self.$data = data;
                 self.$options.methods.playControl();  //歌曲播放控制
-            },
-            error: function () {
             }
         });
-        //R.ajax({
-        //    url: 'music/info.php',
-        //    data: {
-        //        contentid: id
-        //    },
-        //    success: function (data) {
-        //        self.musicData = data;
-        //        self.$options.methods.playControl();  //歌曲播放控制
-        //        contentCols($('.musicContent'), 5);
-        //    }
-        //});
     }
 }

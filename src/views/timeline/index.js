@@ -1,8 +1,7 @@
 module.exports = {
     template: require('./template.html'),
     data: function () {
-        //timelineData = {}
-        return timelineData;
+        return {};
     },
     methods: {
         'download': function (e) {
@@ -15,17 +14,16 @@ module.exports = {
         }
     },
     ready: function(){
-        console.log("xxxxxxxxxxxxxxx");
-        /*var self = this;
-         var id = self.$route.params.id;
-         R.ajax({
-         url: 'timeline/info.php',
-         data: {
-         contentid: id
-         },
-         success: function (data) {
-         self.timelineData = data;
-         }
-         });*/
+        var self = this;
+        var id = self.$route.params.id;
+        R.ajax({
+            url: 'timeline/info.php',
+            data: {
+                contentid: id
+            },
+            success: function (data) {
+                self.$data = data;
+            }
+        });
     }
 }
