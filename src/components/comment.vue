@@ -12,8 +12,11 @@
                 <template v-for="item in list">
                     <div class="ub ub-ver commentBody">
                         <div class="ub ub-ac">
-                            <div class="ub">
-                                <img :src="item.userinfo.icon" class="commentUserIcon userIconDefault" alt="">
+                            <div class="ub" v-if="item.userinfo.icon">
+                                <img v-bind:data-src="item.userinfo.icon" class="b-lazy commentUserIcon userIconDefault" alt="">
+                            </div>
+                            <div class="ub" v-else="item.userinfo.icon">
+                                <img class="commentUserIcon userIconDefault" alt="">
                             </div>
                             <div class="ub-f1 commentUserName">{{item.userinfo.uname}}</div>
                             <div class="ub ub-pe">
@@ -26,12 +29,12 @@
                 </template>
             </div>
 
-            <div class="appDown ub ub-ver ub-ac uhide" v-on:click="download">
+            <div class="appDown ub ub-ver ub-ac" v-on:click="download">
                 <div class="ub-img appImage"></div>
                 <div class="ub appText">
                     <div>打开片刻APP</div>
                     <div class="appComma">,</div>
-                    <div>查看全部<span class="commentsL">78</span>条评论</div>
+                    <div>查看全部<span class="commentsL"></span>条评论</div>
                 </div>
             </div>
         </div>
@@ -58,24 +61,11 @@
         ready: function () {
             var self = this;
             var id = self.$route.params.id;
-            /*$.ajax({
-             url: './src/components/data.json',
-             data: {
-             contentid: id
-             },
-             dataType: 'json',
-             success: function (data) {
-
-             self.list = data.splice(0, 3);
-             }
-             });*/
-
             R.ajax({
-                url: 'comment/list.php',
+                url: 'comment/listOfHot.php',
                 data: {
                     contentid: id,
-                    pageSize: 3,
-                    isAll: 0
+                    isAll: 1
                 },
                 success: function (data) {
                     if (data.length == 0) {
@@ -83,10 +73,10 @@
                     } else if (data.length < 3) {
                         self.list = data
                     } else {
-                        $('.appDown').removeClass('uhide')
-                        $('.commentsL').html(data.length - 3);
                         self.list = data.splice(0, 3);
                     }
+                    var bLazy = new Blazy({
+                    });
                 }
             });
 

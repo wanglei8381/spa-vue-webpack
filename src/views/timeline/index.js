@@ -26,7 +26,10 @@ module.exports = {
                 contentid: id
             },
             success: function (data) {
+                document.title = data.shareInfo.title;
                 self.$data = data;
+                var bLazy = new Blazy({
+                });
             }
         });
     }

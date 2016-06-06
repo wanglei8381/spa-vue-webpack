@@ -1,5 +1,7 @@
-//设置一个全局变量
-var serverUrl = 'http://api.pianke.me/version4.0/';
+var serverUrl = 'http://api.pianke.me/version4.0/';//地址
+//var serverUrl = 'version4.0/';
+var th  = -1;
+var isplay = 0;
 var R = {
     ajax: function (options) {
         var d = new Date();
@@ -13,8 +15,6 @@ var R = {
         options.dataType = options.dataType || 'json';
         options.headers = headers;
         options.url = serverUrl + options.url + "?sig=" + sign;
-        console.log(options.url);
-        console.log();
         var success = options.success;
         options.success = function (req) {
             try {
@@ -57,18 +57,14 @@ function topicCols(data) {
     return contentData;
 }
 
-function contentCols(dom, cols) {
-    var lineH = dom.css("line-height");
-    var lineHeight = parseInt(lineH);
-    var contentHeight = dom.height();
-
-    if (contentHeight / lineHeight > cols) {
-        dom.height(lineHeight * cols);
+function contentCols(dom, colsH) {
+    var contentHeight = dom.height()/40;
+    if(contentHeight > colsH){
+        dom.height(colsH*40);
         dom.css("overflow", "hidden");
         $('.more').removeClass('uhide');
         $('.more').click(function () {
-            dom.css("overflow", "");
-            dom.height(contentHeight);
+            dom.height('100%');
             $('.more').addClass('uhide');
         })
     }

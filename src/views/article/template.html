@@ -1,7 +1,7 @@
 <!--article start-->
 <div class="ub ub-ver ub-ac ub-pc">
     <div class="ub-f1 articleTop articleImage">
-        <img v-bind:src="info.coverimg" width="100%" alt="">
+        <img v-bind:data-src="info.coverimg" width="100%" alt="" class="b-lazy">
     </div>
     <!--<div class="ub-img articlePlay"></div>-->
 </div>
@@ -13,16 +13,15 @@
     <div class="ub ub-pc ub-ac articleAuthor">
         <div class="articleAColor">作者&nbsp;:&nbsp;&nbsp;<span class="author">{{info.userinfo.uname}}</span></div>
         <div class="articleMarginLR">
-            <span>{{info.min}} </span> min&nbsp;read
+            <span>{{info.mins}} </span> min&nbsp;read
         </div>
         浏览&nbsp;:&nbsp;&nbsp;<span>{{info.views}}</span>
     </div>
     <hr class="minHr">
     <div class="articleDes"></div>
     <div class="articleContent">
-        <p v-for="item in cnt.content">
-            {{{ item.content }}}
-        </p>
+        <div v-if="info.html">{{{info.html}}}</div>
+        <div v-if="info.text">{{{info.text}}}</div>
     </div>
     <div class="more ub ub-ver ub-ac uhide">
         <div>查看全部</div>

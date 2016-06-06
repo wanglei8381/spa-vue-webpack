@@ -11,7 +11,7 @@
         </div>
         <template v-for="item in articleArr">
             <div class="ub ub-ver articleList" v-link="{ name:'article',params: {id:item.id} }">
-                <div class="ub-f1 hotContent hotArticle">{{item.title}}</div>
+                <div class="ub-f1 hotContent hotArticle titleWeight ut-s">{{item.title}}</div>
             </div>
         </template>
     </div>
@@ -27,7 +27,7 @@
             <template v-for="item in tingArr">
                 <div class="ub-f1 ub-ver hotTing hotMarginLR" v-link="{ name:'radio',params: {id:item.id} }">
                     <img v-bind:src="item.coverimg" alt="" width="100%">
-                    <div class="hotContentTing">{{item.title}}</div>
+                    <div class="hotContentTing titleWeight">{{item.title}}</div>
                 </div>
 
             </template>
@@ -47,9 +47,9 @@
                 <div class="ub ub-ac hotCotentTopic hotMarginTB hotTopicItem"
                      v-link="{name:'topic',params: {id:item.id}}">
                     <div class="ub">
-                        <img v-bind:src="item.coverimg" class="hotTopic" alt="">
+                        <img v-bind:data-src="item.coverimg" alt="" class=" hotTopic b-lazy">
                     </div>
-                    <div class="hotPaddL ub-f1">{{item.title}}</div>
+                    <div class="hotPaddL ub-f1 titleWeight">{{item.title}}</div>
                 </div>
             </template>
         </div>
@@ -67,9 +67,9 @@
                 <div class="ub ub-ac hotCotentTopic hotMusicItem hotMarginMusicTB"
                      v-link="{ name:'music',params: {id:item.id} }">
                     <div class="ub">
-                        <img v-bind:src="item.coverimg" class="hotMusic" alt="">
+                        <img v-bind:data-src="item.coverimg" alt="" class="hotMusic b-lazy">
                     </div>
-                    <div class="hotPaddL ub-f1">{{item.title}}</div>
+                    <div class="hotPaddL ub-f1 titleWeight titleFont">{{item.title}}</div>
                     <div class="ub ub-img hotMusicPlay"></div>
                 </div>
 
@@ -153,6 +153,10 @@
                     self.tingArr = tingArr.splice(0, 3);
                     self.topicArr = topicArr.splice(0, 3);
                     self.musicArr = musicArr.splice(0, 3);
+
+                    var bLazy = new Blazy({
+                    });
+
                 }
             });
         }

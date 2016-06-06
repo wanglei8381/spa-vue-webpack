@@ -26,10 +26,17 @@ module.exports = {
         R.ajax({
             url: 'topic/info.php',
             data: {
-                contentid: id
+                contentid: id,
+                lazy: 1
             },
             success: function (data) {
+                $('.commentsL').html(data.comments);
+                document.title = data.shareInfo.title;
                 self.$data = data;
+
+                var bLazy = new Blazy({
+                });
+
             }
         });
     }

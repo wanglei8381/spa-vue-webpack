@@ -27,6 +27,11 @@
         }
     });
 
+    var plus = document.documentElement?document.documentElement.clientWidth:document.body.clientWidth;
+    if(plus > 400){
+        baseFontSize = 18;
+    }
+
     var width = window.innerWidth || document.documentElement.clientWidth;
     document.documentElement.style.fontSize = width * baseFontSize * baseScale / baseSize + 'px';
 

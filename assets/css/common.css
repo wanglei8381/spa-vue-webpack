@@ -9,13 +9,23 @@ body {
     background-color: #ffffff;
     font-family: 'PingFangSC_R3a53c6c475fc9';
 }
+img{
+    width:100%
+}
+a{color: #6FAA71;text-decoration: none;}
 
+article p.author {
+    display:none !important;
+}
+article h1:nth-of-type(1) {
+    display:none !important;
+}
 /*------->common*/
 /*旋转动画定义*/
 .playAnimation{
     /* 以下是动画设置 */
-    animation: circleAnimation 5s linear infinite;
-    -webkit-animation: circleAnimation 5s linear infinite;
+    animation: circleAnimation 15s linear infinite;
+    -webkit-animation: circleAnimation 15s linear infinite;
 }
 @keyframes circleAnimation {
     0%   {transform:rotate(0deg);-webkit-transform:rotate(0deg);}
@@ -125,6 +135,12 @@ body {
     margin-bottom: 1px;
     font-weight: bold;
 }
+.titleWeight{
+    font-weight: bold;
+}
+.titleFont{
+    font-size: 0.7rem;
+}
 
 .titleS {
     color: #9B9B9B;
@@ -155,7 +171,7 @@ body {
     background-color: #FBFBFB;
     color: #4A4A4A;
     font-size: 0.8rem;
-    padding: 1.025rem 0.95rem;
+    padding: 1.15rem 0.95rem;
     margin-top: 0.35rem;
     line-height: 1.125rem;
 }
@@ -392,9 +408,9 @@ body {
     height: 3.25rem;
     position: absolute;
     left: 50%;
-    top: 50%;
+    z-index: 998;
     margin-left: -1.625rem;
-    margin-top: -2.4rem;
+    margin-top: 7.375rem;
     display: block;
 }
 .radioPlay {

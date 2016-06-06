@@ -1,13 +1,13 @@
 
 <!--radio start-->
-<audio id="audiosrc" class="uhide" controls="controls" v-bind:src="info.musicUrl">
+<audio id="audiosrc" class="uhide" v-bind:src="info.musicUrl">
     Your browser does not support the audio element.
 </audio>
 
 <!--页面上滑到一定高度后显示播放效果-->
 <div class="fixedPlay ub ub-ac ub-pc uhide">
     <div class="ub-f1 ub-ver fixedTitle">
-        <div class="ub-f1 titleR"></div>
+        <div class="ub-f1 titleR">{{info.title}}</div>
         <div class="ub-f1 fixedPlayTime"><span class="musicPlayTimesC">00 : 00</span> / <span
                 class="musicTime">00 : 00</span></div>
     </div>
@@ -15,10 +15,10 @@
 </div>
 
 <div class="ub ub-ver ub-ac ub-pc">
+    <div class="ub-img radioPlay2 radioPlayT"></div>
     <div class="ub radioTop ub-img ub-ac ub-pc">
         <img v-bind:src="info.imgUrl" class="musicImgWH" alt="">
     </div>
-    <div class="ub-img radioPlay2 radioPlayT"></div>
     <div class="playTime"><span class="musicPlayTimesC">00 : 00</span> / <span class="musicTime">00 : 00</span></div>
     <div class="radioTitle">{{info.title}}</div>
     <div class="radioAnchor">主播: <span>{{info.userinfo.uname}}</span></div>
@@ -28,12 +28,10 @@
 <div class="commonSpace"></div>
 
 <div class="radio">
-    <div class="radioContentAuthor">文:&nbsp;by&nbsp; <span>{{info.collInfo.spaceName}}</span></div>
+    <div class="radioContentAuthor">文:&nbsp; <span class="spaceName uhide">by&nbsp;{{info.collInfo.spaceName}}</span></div>
     <hr class="radioHr">
     <div class="radioContent">
-        <p v-for="item in cnt.content">
-          {{item.content}}
-        </p>
+        {{{info.html}}}
     </div>
     <div class="more ub ub-ver ub-ac uhide">
         <div>查看全部</div>

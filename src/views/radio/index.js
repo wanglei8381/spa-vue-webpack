@@ -1,13 +1,12 @@
 module.exports = {
     template: require('./template.html'),
     data: function () {
-        return {info: {}, cnt: {}};
+        return {info: {}};
     },
     route: {
         canReuse:false,
     },
     methods: {
-        'isplay': 0,
         'download': function (e) {
             var u = navigator.userAgent;
             if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
@@ -23,13 +22,14 @@ module.exports = {
                 function () {
                     var allTime = audio.duration;
                     self.timeChange(allTime, "musicTime");
-                    setInterval(function () {
+                    th = setInterval(function () {
                         var currentTime = audio.currentTime;
                         self.timeChange(currentTime, "musicPlayTimesC");
                     }, 1000);
                 }, false);
             audio.addEventListener("ended", function () {
-                self.isplay = 0;
+                isplay = 0;
+                $('.radioTop').css('-webkit-animation-play-state', 'paused');
                 $('.radioTop').css('animation-play-state', 'paused');
                 $('.radioPlay2').removeClass('radioPlayF');
                 $('.radioPlay2').addClass('radioPlayT');
@@ -38,34 +38,36 @@ module.exports = {
             }, false)
 
             $('.radioPlay2').click(function () {
-                if (self.isplay == 1) {
+                if (isplay == 1) {
                     //停止旋转,停止播放
                     audiosrc.pause();
+                    $('.radioTop').css('-webkit-animation-play-state', 'paused');
                     $('.radioTop').css('animation-play-state', 'paused');
-                    self.isplay = 0;
+                    isplay = 0;
                     $('.radioPlay2').removeClass('radioPlayF');
                     $('.radioPlay2').addClass('radioPlayT');
                 } else {
                     //旋转,播放
                     audiosrc.play();
+                    $('.radioTop').css('-webkit-animation-play-state', 'running');
                     $('.radioTop').css('animation-play-state', 'running');
                     $('.radioTop').addClass('playAnimation');
-                    self.isplay = 1;
+                    isplay = 1;
                     $('.radioPlay2').addClass('radioPlayF');
                     $('.radioPlay2').removeClass('radioPlayT');
                 }
             })
             $('.fiexedPlay').click(function () {
-                if (self.isplay == 1) {
+                if (isplay == 1) {
                     //停止旋转,停止播放
                     audiosrc.pause();
-                    self.isplay = 0;
+                    isplay = 0;
                     $('.fiexedPlay').removeClass('fixedPauseIcon');
                     $('.fiexedPlay').addClass('fixedPlayIcon');
                 } else {
                     //旋转,播放
                     audiosrc.play();
-                    self.isplay = 1;
+                    isplay = 1;
                     $('.fiexedPlay').addClass('fixedPauseIcon');
                     $('.fiexedPlay').removeClass('fixedPlayIcon');
                 }
@@ -88,9 +90,9 @@ module.exports = {
             $('.' + timePlace).html(allTime);
         },
         'playStatus': function () {
-            var self = this;
-            if (self.isplay == 1) {
+            if (isplay == 1) {
                 $('.radioTop').addClass('playAnimation');
+                $('.radioTop').css('-webkit-animation-play-state', 'running');
                 $('.radioTop').css('animation-play-state', 'running');
                 $('.radioPlay2').addClass('radioPlayF');
                 $('.radioPlay2').removeClass('radioPlayT');
@@ -98,6 +100,7 @@ module.exports = {
                 $('.fiexedPlay').removeClass('fixedPlayIcon');
             } else {
                 $('.radioTop').css('animation-play-state', 'paused');
+                $('.radioTop').css('-webkit-animation-play-state', 'paused');
                 $('.radioPlay2').removeClass('radioPlayF');
                 $('.radioPlay2').addClass('radioPlayT');
                 $('.fiexedPlay').removeClass('fixedPauseIcon');
@@ -106,13 +109,18 @@ module.exports = {
         }
     },
     watch: {
-        "cnt.content": function () {
-            contentCols($('.radioContent'), 20);
+        "info.html": function () {
+            contentCols($('.radioContent'), 30);
         }
     },
     ready: function () {
         window.scrollTo(0, -100);
         var self = this;
+        isplay = 0;
+        if(th){
+            clearInterval(th);
+        }
+
         $(window).scroll(function () {
             var a = document.body.scrollTop;
             if (a > 300) {
@@ -127,22 +135,19 @@ module.exports = {
         R.ajax({
             url: 'ting/info.php',
             data: {
-                tingid: id
+                tingid: id,
+                showhtml: 1
             },
             success: function (data) {
+                document.title = data.shareinfo.title;
                 self.info = data;
-                var idIndex = data.webview_url.lastIndexOf('/');
-                var tingAriticleId = data.webview_url.substring(idIndex + 1);
+                text = data.html.replace(/\n/g," ")
+                text = text.replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,"\"");
+                self.info.html = text;
+                if(data.collInfo.spaceName){
+                    $('.spaceName').removeClass('uhide')
+                }
                 self.$options.methods.playControl();  //歌曲播放控制
-                R.ajax({
-                    url: 'article/editableInfo.php',
-                    data: {
-                        id: tingAriticleId
-                    },
-                    success: function (data) {
-                        self.cnt = data;
-                    }
-                });
             }
         });
     }

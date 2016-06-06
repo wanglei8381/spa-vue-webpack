@@ -4,7 +4,7 @@ module.exports = {
         return {};
     },
     route: {
-        canReuse:false,
+        canReuse: false,
     },
     computed: {
         musicUrl: function () {
@@ -12,7 +12,6 @@ module.exports = {
         }
     },
     methods: {
-        'isplay': 0,
         'download': function (e) {
             var u = navigator.userAgent;
             if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
@@ -28,14 +27,15 @@ module.exports = {
                 function () {
                     var allTime = audio.duration;
                     self.timeChange(allTime, "musicTime");
-                    setInterval(function () {
+                    th = setInterval(function () {
                         var currentTime = audio.currentTime;
                         self.timeChange(currentTime, "musicPlayTimesC");
                     }, 1000);
                 }, false);
             audio.addEventListener("ended", function () {
-                self.isplay = 0;
-                $('.radioTop').css('animation-play-state', 'paused');
+                isplay = 0;
+                $('.musicTop').css('-webkit-animation-play-state', 'paused');
+                $('.musicTop').css('animation-play-state', 'paused');
                 $('.radioPlay').removeClass('radioPlayF');
                 $('.radioPlay').addClass('radioPlayT');
                 $('.fiexedPlay').removeClass('fixedPauseIcon');
@@ -43,34 +43,36 @@ module.exports = {
             }, false)
 
             $('.radioPlay').click(function () {
-                if (self.isplay == 1) {
+                if (isplay == 1) {
                     //停止旋转,停止播放
                     audiosrc.pause();
+                    $('.musicTop').css('-webkit-animation-play-state', 'paused');
                     $('.musicTop').css('animation-play-state', 'paused');
-                    self.isplay = 0;
+                    isplay = 0;
                     $('.radioPlay').removeClass('radioPlayF');
                     $('.radioPlay').addClass('radioPlayT');
                 } else {
                     //旋转,播放
                     audiosrc.play();
+                    $('.musicTop').css('-webkit-animation-play-state', 'running');
                     $('.musicTop').css('animation-play-state', 'running');
                     $('.musicTop').addClass('playAnimation');
-                    self.isplay = 1;
+                    isplay = 1;
                     $('.radioPlay').addClass('radioPlayF');
                     $('.radioPlay').removeClass('radioPlayT');
                 }
             })
             $('.fiexedPlay').click(function () {
-                if (self.isplay == 1) {
+                if (isplay == 1) {
                     //停止旋转,停止播放
                     audiosrc.pause();
-                    self.isplay = 0;
+                    isplay = 0;
                     $('.fiexedPlay').removeClass('fixedPauseIcon');
                     $('.fiexedPlay').addClass('fixedPlayIcon');
                 } else {
                     //旋转,播放
                     audiosrc.play();
-                    self.isplay = 1;
+                    isplay = 1;
                     $('.fiexedPlay').addClass('fixedPauseIcon');
                     $('.fiexedPlay').removeClass('fixedPlayIcon');
                 }
@@ -93,9 +95,9 @@ module.exports = {
             $('.' + timePlace).html(allTime);
         },
         'playStatus': function () {
-            var self = this;
-            if (self.isplay == 1) {
+            if (isplay == 1) {
                 $('.musicTop').addClass('playAnimation');
+                $('.musicTop').css('-webkit-animation-play-state', 'running');
                 $('.musicTop').css('animation-play-state', 'running');
                 $('.radioPlay').addClass('radioPlayF');
                 $('.radioPlay').removeClass('radioPlayT');
@@ -103,6 +105,7 @@ module.exports = {
                 $('.fiexedPlay').removeClass('fixedPlayIcon');
             } else {
                 $('.musicTop').css('animation-play-state', 'paused');
+                $('.musicTop').css('-webkit-animation-play-state', 'paused');
                 $('.radioPlay').removeClass('radioPlayF');
                 $('.radioPlay').addClass('radioPlayT');
                 $('.fiexedPlay').removeClass('fixedPauseIcon');
@@ -111,13 +114,17 @@ module.exports = {
         }
     },
     watch: {
-        "text": function () {
-            contentCols($('.musicContent'), 5);
+        "text": function (val) {
+            contentCols($('.musicContent'), 7.5);
         }
     },
     ready: function () {
         window.scrollTo(0, -100);
         var self = this;
+        isplay = 0;
+        if (th) {
+            clearInterval(th);
+        }
         $(window).scroll(function () {
             var a = document.body.scrollTop;
             if (a > 300) {
@@ -129,6 +136,17 @@ module.exports = {
             }
         });
 
+        var song = self.$route.query.song;
+        if (song) {
+            song = JSON.parse(song);
+            $('.musicAuthor').removeClass('uhide')
+            $('.musicAuthor').html(song.singer);
+            $('.musicTitle').html(song.title);
+            $('.musicTop img').removeClass('uhide')
+            $('.musicImgdefault').addClass('uhide')
+            $('.musicTop img').attr('src', song.cover);
+        }
+
         var id = self.$route.params.id;
         R.ajax({
             url: 'music/info.php',
@@ -136,6 +154,9 @@ module.exports = {
                 contentid: id
             },
             success: function (data) {
+                document.title = data.shareInfo.title;
+                text = data.text.replace(/\n/g,"<br/>");
+                $('.musicContent').html(text)
                 self.$data = data;
                 self.$options.methods.playControl();  //歌曲播放控制
             }

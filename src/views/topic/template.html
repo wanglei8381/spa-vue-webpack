@@ -6,8 +6,11 @@
     </div>
     <div class="topicTitle">{{title}}</div>
     <div class="ub ub-ac">
-        <div>
-            <img v-bind:src="userinfo.icon" alt="" class="commentUserIcon userIconDefault">
+        <div v-if="userinfo.icon">
+            <img v-bind:data-src="userinfo.icon" class="b-lazy commentUserIcon userIconDefault" alt="">
+        </div>
+        <div class="ub" v-else="userinfo.icon">
+            <img class="commentUserIcon userIconDefault" alt="">
         </div>
         <div class="topicAdmin">{{userinfo.uname}}</div>
         <div class="ub-f1"><span class="topicType">楼主</span></div>

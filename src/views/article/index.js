@@ -14,6 +14,10 @@ module.exports = {
             if (val == '') {
                 $('.articleImage').addClass('uhide');
             }
+        },
+        "info.html": function(val){
+            $(val).find('h1').first().css({display:'none'});
+            contentCols($('.articleContent'), 30);
         }
     },
     ready: function () {
@@ -23,10 +27,15 @@ module.exports = {
         R.ajax({
             url: 'article/info.php',
             data: {
-                contentid: id
+                contentid: id,
+                lazy: 1
             },
             success: function (data) {
+                $('.commentsL').html(data.comments);
+                document.title = data.shareInfo.title;
                 self.info = data;
+                var bLazy = new Blazy({
+                });
             }
         });
         R.ajax({

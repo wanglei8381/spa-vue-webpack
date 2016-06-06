@@ -48,9 +48,7 @@ Vue.component('share-cpt', require('./components/share.vue'));
 
 // 路由器需要一个根组件。
 var App = Vue.extend({
-    data: function(){
-        return {title: '微信分享'};
-    },
+
 });
 
 // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
