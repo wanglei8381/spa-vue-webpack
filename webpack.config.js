@@ -6,31 +6,31 @@ module.exports = {
     entry: "./src/main.js",
     output: {
         path: "./build",
-        //publicPath: "./build/",
-        publicPath: "http://pianke.image.alimmdn.com/wxshare/build/",
+        publicPath: "./build/",
+        //publicPath: "http://pianke.image.alimmdn.com/wxshare/build/",
         filename: "build.js"
     },
     module: {
         loaders: [
-            { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
-            { test: /\.scss$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")},
-            { test: /\.less$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")},
-            { test: /\.styl$/, loader: "style!css!stylus" },
-            { test: /\.js$/, loader: 'babel'},
-            { test: /\.html$/, loader: "html" },
-            { test: /\.vue$/, loader: "vue" }
+            {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
+            {test: /\.scss$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")},
+            {test: /\.less$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")},
+            {test: /\.styl$/, loader: "style!css!stylus"},
+            {test: /\.js$/, loader: 'babel'},
+            {test: /\.html$/, loader: "html"},
+            {test: /\.vue$/, loader: "vue"},
         ]
     },
     babel: {
         //presets: ['es2015', 'stage-0'],
         //plugins: ['transform-runtime']
     },
-    resolve:{
-        extensions:['','.js','.json']
+    resolve: {
+        extensions: ['', '.js', '.json']
     },
     plugins: [
         //提取文件的公共部分
-        new webpack.optimize.CommonsChunkPlugin('commons','common.js'),
+        new webpack.optimize.CommonsChunkPlugin('commons', 'common.js'),
         //将css放在单独的文件中
         new ExtractTextPlugin("css/[name].css")
     ],

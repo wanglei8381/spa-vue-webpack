@@ -26,8 +26,8 @@
         <div class="ub tingList">
             <template v-for="item in tingArr">
                 <div class="ub-f1 ub-ver hotTing hotMarginLR" v-link="{ name:'radio',params: {id:item.id} }">
-                    <img v-bind:src="item.coverimg" alt="" width="100%">
-                    <div class="hotContentTing titleWeight">{{item.title}}</div>
+                    <img v-bind:data-src="item.coverimg" class="hotTingImg b-lazy" :src="loading">
+                    <div class="hotContentTing titleWeight textWidth">{{item.title}}</div>
                 </div>
 
             </template>
@@ -47,7 +47,7 @@
                 <div class="ub ub-ac hotCotentTopic hotMarginTB hotTopicItem"
                      v-link="{name:'topic',params: {id:item.id}}">
                     <div class="ub">
-                        <img v-bind:data-src="item.coverimg" alt="" class=" hotTopic b-lazy">
+                        <img v-bind:data-src="item.coverimg" :src="topicLoading" class=" hotTopic b-lazy">
                     </div>
                     <div class="hotPaddL ub-f1 titleWeight">{{item.title}}</div>
                 </div>
@@ -67,7 +67,7 @@
                 <div class="ub ub-ac hotCotentTopic hotMusicItem hotMarginMusicTB"
                      v-link="{ name:'music',params: {id:item.id} }">
                     <div class="ub">
-                        <img v-bind:data-src="item.coverimg" alt="" class="hotMusic b-lazy">
+                        <img v-bind:data-src="item.coverimg" :src="loading" class="hotMusic b-lazy">
                     </div>
                     <div class="hotPaddL ub-f1 titleWeight titleFont">{{item.title}}</div>
                     <div class="ub ub-img hotMusicPlay"></div>
@@ -95,15 +95,31 @@
 <script>
     module.exports = {
         data: function () {
-            return {articleArr: [], tingArr: [], topicArr: [], musicArr: []};
+            return {
+                articleArr: [],
+                tingArr: [],
+                topicArr: [],
+                musicArr: [],
+                loading: 'http://pianke.image.alimmdn.com/wxshare/assets/img/loading.jpg',
+                topicLoading:'http://pianke.image.alimmdn.com/wxshare/assets/img/loading2.jpg'
+            };
         },
         methods: {
             'download': function (e) {
+                var self = this;
                 var u = navigator.userAgent;
                 if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
                     window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client');
                 } else if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
                     window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client&g_f=995016');
+                } else {
+                    var routerName = self.$route.name;
+                    var id = self.$route.params.id;
+                    if (routerName == 'radio') {
+                        window.open('http://pianke.me/ting/' + id);
+                    } else {
+                        window.open('http://pianke.me/posts/' + id)
+                    }
                 }
             }
         },
@@ -129,7 +145,7 @@
                         } else if (item.content.type == '17') { //ting
                             var tingItem = {
                                 'id': item.tingInfo.tingid,
-                                'title': item.tingInfo.title.substr(0,6),
+                                'title': item.tingInfo.title.substr(0, 6),
                                 'coverimg': item.tingInfo.imgUrl
                             }
                             tingArr.push(tingItem);
@@ -154,8 +170,7 @@
                     self.topicArr = topicArr.splice(0, 3);
                     self.musicArr = musicArr.splice(0, 3);
 
-                    var bLazy = new Blazy({
-                    });
+                    var bLazy = new Blazy({});
 
                 }
             });

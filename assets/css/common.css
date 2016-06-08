@@ -10,7 +10,7 @@ body {
     font-family: 'PingFangSC_R3a53c6c475fc9';
 }
 img{
-    width:100%
+    width:100% !important;
 }
 a{color: #6FAA71;text-decoration: none;}
 
@@ -19,6 +19,9 @@ article p.author {
 }
 article h1:nth-of-type(1) {
     display:none !important;
+}
+.textWidth{
+    width:5.5rem;
 }
 /*------->common*/
 /*旋转动画定义*/
@@ -214,12 +217,16 @@ article h1:nth-of-type(1) {
 }
 
 .hotTopic {
-    width: 6.25rem;
+    width: 6.25rem !important;
     height: 3.125rem;
+}
+.hotTingImg{
+    width:5.5rem !important;
+    height:5.5rem;
 }
 
 .hotMusic {
-    width: 2.3rem;
+    width: 2.3rem !important;
     height: 2.35rem;
 }
 
@@ -262,7 +269,7 @@ article h1:nth-of-type(1) {
 }
 
 .commentUserIcon {
-    width: 2rem;
+    width: 2rem !important;
     height: 2rem;
     border-radius: 50%;
 }
@@ -307,7 +314,7 @@ article h1:nth-of-type(1) {
 
 .fixedPlayIcon {
     background-image: url("../img/radioPlay.png");
-    width: 2.45rem;
+    width: 2.45rem ;
     height: 2.45rem;
 }
 
@@ -404,7 +411,7 @@ article h1:nth-of-type(1) {
 }
 .radioPlay2 {
     background-size: 100%;
-    width: 3.25rem;
+    width: 3.25rem !important;
     height: 3.25rem;
     position: absolute;
     left: 50%;
@@ -415,7 +422,7 @@ article h1:nth-of-type(1) {
 }
 .radioPlay {
     background-size: 100%;
-    width: 3.25rem;
+    width: 3.25rem !important;
     height: 3.25rem;
     position: absolute;
     left: 50%;
@@ -482,7 +489,7 @@ article h1:nth-of-type(1) {
 
 .musicImgWH {
     border-radius: 50%;
-    width: 9rem;
+    width: 9rem !important;
     height: 9rem;
     display: block;
 }
@@ -579,7 +586,7 @@ article h1:nth-of-type(1) {
 /*------->download*/
 .downloadLogoImg {
     background-image: url("../img/downloadLogo.png");
-    width: 5.36rem;
+    width: 5.36rem ;
     height: 2.36rem;
     margin-top: 3.72rem;
     margin-bottom: 2.95rem;

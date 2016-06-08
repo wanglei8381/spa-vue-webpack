@@ -13,7 +13,7 @@
                     <div class="ub ub-ver commentBody">
                         <div class="ub ub-ac">
                             <div class="ub" v-if="item.userinfo.icon">
-                                <img v-bind:data-src="item.userinfo.icon" class="b-lazy commentUserIcon userIconDefault" alt="">
+                                <img v-bind:data-src="item.userinfo.icon" class="b-lazy commentUserIcon userIconDefault" :src="loading">
                             </div>
                             <div class="ub" v-else="item.userinfo.icon">
                                 <img class="commentUserIcon userIconDefault" alt="">
@@ -46,7 +46,10 @@
 
     module.exports = {
         data: function () {
-            return {list: []};
+            return {
+                list: [],
+                loading: 'http://pianke.image.alimmdn.com/wxshare/assets/img/loading.jpg'
+            };
         },
         methods: {
             'download': function (e) {
@@ -55,6 +58,14 @@
                     window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client');
                 } else if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
                     window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client&g_f=995016');
+                }else{
+                    var routerName = self.$route.name;
+                    var id = self.$route.params.id;
+                    if(routerName == 'radio'){
+                        window.open('http://pianke.me/ting/'+ id);
+                    }else{
+                        window.open('http://pianke.me/posts/'+ id)
+                    }
                 }
             }
         },
