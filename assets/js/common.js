@@ -1,5 +1,5 @@
-//var serverUrl = 'http://api.pianke.me/version4.0/';//地址
-var serverUrl = 'version4.0/';
+//var serverUrl = 'http://pianke.me/version4.0/';//地址
+var serverUrl = '/version4.0/';
 var th  = -1;
 var isplay = 0;
 var R = {

@@ -6,8 +6,8 @@ module.exports = {
     entry: "./src/main.js",
     output: {
         path: "./build",
-        publicPath: "./build/",
-        //publicPath: "http://pianke.image.alimmdn.com/wxshare/build/",
+        //publicPath: "./build/",
+        publicPath: "http://pianke.image.alimmdn.com/wxshare/build/",
         filename: "build.js"
     },
     module: {

@@ -4,7 +4,7 @@ module.exports = {
         return {info: {}};
     },
     route: {
-        canReuse:false,
+        canReuse: false,
     },
     methods: {
         'download': function (e) {
@@ -117,7 +117,7 @@ module.exports = {
         window.scrollTo(0, -100);
         var self = this;
         isplay = 0;
-        if(th){
+        if (th) {
             clearInterval(th);
         }
 
@@ -132,23 +132,29 @@ module.exports = {
             }
         })
         var id = self.$route.params.id;
-        R.ajax({
-            url: 'ting/info.php',
-            data: {
-                tingid: id,
-                showhtml: 1
-            },
-            success: function (data) {
-                document.title = data.shareinfo.title;
-                self.info = data;
-                text = data.html.replace(/\n/g," ")
-                text = text.replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,"\"");
-                self.info.html = text;
-                if(data.collInfo.spaceName){
-                    $('.spaceName').removeClass('uhide')
+
+        var u = navigator.userAgent;
+        if (u.match(/Android/i) || (u.indexOf('iPhone') != -1) || (u.indexOf('iPod') != -1) || (u.indexOf('iPad') != -1)) {
+            R.ajax({
+                url: 'ting/info.php',
+                data: {
+                    tingid: id,
+                    showhtml: 1
+                },
+                success: function (data) {
+                    document.title = data.shareinfo.title;
+                    self.info = data;
+                    text = data.html.replace(/\n/g, " ")
+                    text = text.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"");
+                    self.info.html = text;
+                    if (data.collInfo.spaceName) {
+                        $('.spaceName').removeClass('uhide')
+                    }
+                    self.$options.methods.playControl();  //歌曲播放控制
                 }
-                self.$options.methods.playControl();  //歌曲播放控制
-            }
-        });
+            });
+        } else {
+            window.location.href = 'http://pianke.me/ting/' + id
+        }
     }
 }

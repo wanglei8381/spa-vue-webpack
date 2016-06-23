@@ -4,7 +4,7 @@ module.exports = {
         return {};
     },
     route: {
-        canReuse:false,
+        canReuse: false,
     },
     methods: {
         'download': function (e) {
@@ -16,21 +16,25 @@ module.exports = {
             }
         }
     },
-    ready: function(){
+    ready: function () {
         window.scrollTo(0, -100);
         var self = this;
         var id = self.$route.params.id;
-        R.ajax({
-            url: 'timeline/info.php',
-            data: {
-                contentid: id
-            },
-            success: function (data) {
-                document.title = data.shareInfo.title;
-                self.$data = data;
-                var bLazy = new Blazy({
-                });
-            }
-        });
+
+        var u = navigator.userAgent;
+        if (u.match(/Android/i) || (u.indexOf('iPhone') != -1) || (u.indexOf('iPod') != -1) || (u.indexOf('iPad') != -1)) {
+            R.ajax({
+                url: 'timeline/info.php',
+                data: {
+                    contentid: id
+                },
+                success: function (data) {
+                    document.title = data.shareInfo.title;
+                    self.$data = data;
+                }
+            });
+        } else {
+            window.location.href = 'http://pianke.me/posts/' + id
+        }
     }
 }

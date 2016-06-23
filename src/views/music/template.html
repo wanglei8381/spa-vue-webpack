@@ -6,7 +6,7 @@
 <!--页面上滑到一定高度后显示播放效果-->
 <div class="fixedPlay ub ub-ac ub-pc uhide">
     <div class="ub-f1 ub-ver fixedTitle">
-        <div class="ub-f1">{{title}}</div>
+        <div class="ub-f1">{{songInfo.name}}</div>
         <div class="ub-f1 fixedPlayTime"><span class="musicPlayTimesC">00 : 00</span> / <span
                 class="musicTime">00 : 00</span></div>
     </div>
@@ -14,13 +14,13 @@
 </div>
 
 <div class="ub ub-ver ub-ac ub-pc">
-    <div class="musicTitle">{{title}}</div>
-    <div class="musicAuthor uhide"></div>
+    <div class="musicTitle">{{songInfo.name}}</div>
+    <div class="musicAuthor">{{songInfo.singer}}</div>
     <div class="musicPlayTime"><span class="musicPlayTimesC">00 : 00</span> / <span class="musicTime">00 : 00</span>
     </div>
     <div class="ub musicTop ub-img ub-ac ub-pc">
-        <div class="ub-img musicImgdefault  musicImgWH"></div>
-        <img src="" class="musicImgWH uhide" alt="">
+        <img :src="songInfo.albumcover" class="musicImgWH" v-if="songInfo.albumcover">
+        <div v-else="songInfo.albumcover" class="ub-img musicImgdefault musicImgWH"></div>
     </div>
     <div class="ub-img radioPlay radioPlayT"></div>
     <div class="musicPlayNumbers">播放: <span>2080</span></div>

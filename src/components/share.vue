@@ -64,7 +64,7 @@
         </div>
         <div class="musicList">
             <template v-for="item in musicArr">
-                <div class="ub ub-ac hotCotentTopic hotMusicItem hotMarginMusicTB"
+                <div class="ub ub-ac hotmusicPad hotMusicItem hotMarginMusicTB"
                      v-link="{ name:'music',params: {id:item.id} }">
                     <div class="ub">
                         <img v-bind:data-src="item.coverimg" :src="loading" class="hotMusic b-lazy">
@@ -112,14 +112,6 @@
                     window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client');
                 } else if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
                     window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client&g_f=995016');
-                } else {
-                    var routerName = self.$route.name;
-                    var id = self.$route.params.id;
-                    if (routerName == 'radio') {
-                        window.open('http://pianke.me/ting/' + id);
-                    } else {
-                        window.open('http://pianke.me/posts/' + id)
-                    }
                 }
             }
         },
@@ -160,7 +152,7 @@
                             var musicItem = {
                                 'id': item.content.id,
                                 'title': item.content.title,
-                                'coverimg': item.content.coverimg
+                                'coverimg': item.content.songinfo.albumcover_small
                             }
                             musicArr.push(musicItem);
                         }
@@ -169,6 +161,7 @@
                     self.tingArr = tingArr.splice(0, 3);
                     self.topicArr = topicArr.splice(0, 3);
                     self.musicArr = musicArr.splice(0, 3);
+
 
                     var bLazy = new Blazy({});
 

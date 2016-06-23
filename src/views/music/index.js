@@ -1,7 +1,7 @@
 module.exports = {
     template: require('./template.html'),
     data: function () {
-        return {};
+        return {songInfo:{}};
     },
     route: {
         canReuse: false,
@@ -135,31 +135,26 @@ module.exports = {
                 self.$options.methods.playStatus();
             }
         });
-
-        var song = self.$route.query.song;
-        if (song) {
-            song = JSON.parse(song);
-            $('.musicAuthor').removeClass('uhide')
-            $('.musicAuthor').html(song.singer);
-            $('.musicTitle').html(song.title);
-            $('.musicTop img').removeClass('uhide')
-            $('.musicImgdefault').addClass('uhide')
-            $('.musicTop img').attr('src', song.cover);
-        }
-
         var id = self.$route.params.id;
-        R.ajax({
-            url: 'music/info.php',
-            data: {
-                contentid: id
-            },
-            success: function (data) {
-                document.title = data.shareInfo.title;
-                text = data.text.replace(/\n/g,"<br/>");
-                $('.musicContent').html(text)
-                self.$data = data;
-                self.$options.methods.playControl();  //歌曲播放控制
-            }
-        });
+        var u = navigator.userAgent;
+        if (u.match(/Android/i) || (u.indexOf('iPhone') != -1) || (u.indexOf('iPod') != -1) || (u.indexOf('iPad') != -1)) {
+            R.ajax({
+                url: 'music/info.php',
+                data: {
+                    contentid: id
+                },
+                success: function (data) {
+                    self.songInfo = data.songInfo;
+
+                    document.title = data.shareInfo.title;
+                    text = data.text.replace(/\n/g, "<br/>");
+                    $('.musicContent').html(text)
+                    self.$data = data;
+                    self.$options.methods.playControl();  //歌曲播放控制
+                }
+            });
+        } else {
+            window.location.href = 'http://pianke.me/posts/' + id
+        }
     }
 }

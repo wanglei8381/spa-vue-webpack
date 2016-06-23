@@ -9,9 +9,23 @@ body {
     background-color: #ffffff;
     font-family: 'PingFangSC_R3a53c6c475fc9';
 }
-img{
+
+img {
     width:100% !important;
 }
+
+.b-lazy {
+    -webkit-transition: opacity 500ms ease-in-out;
+    -moz-transition: opacity 500ms ease-in-out;
+    -o-transition: opacity 500ms ease-in-out;
+    transition: opacity 500ms ease-in-out;
+    max-width: 100%;
+    opacity: 0.5;
+}
+.b-lazy.b-loaded {
+    opacity: 1;
+}
+
 a{color: #6FAA71;text-decoration: none;}
 
 article p.author {
@@ -20,6 +34,13 @@ article p.author {
 article h1:nth-of-type(1) {
     display:none !important;
 }
+article pre{
+    display: block !important;
+    white-space: pre-wrap !important;
+}
+
+
+
 .textWidth{
     width:5.5rem;
 }
@@ -226,8 +247,8 @@ article h1:nth-of-type(1) {
 }
 
 .hotMusic {
-    width: 2.3rem !important;
-    height: 2.35rem;
+    width: 2.5rem !important;
+    height: 2.55rem;
 }
 
 .hotMusicPlay {
@@ -240,6 +261,12 @@ article h1:nth-of-type(1) {
 .hotCotentTopic {
     background-color: #FBFBFB;
     padding: 0.875rem 0rem 1rem 0.475rem;
+    color: #4A4A4A;
+    font-size: 0.8rem;
+}
+.hotmusicPad{
+    background-color: #FBFBFB;
+    padding: 0.575rem 0rem 0.325rem 0.475rem;
     color: #4A4A4A;
     font-size: 0.8rem;
 }
@@ -426,9 +453,8 @@ article h1:nth-of-type(1) {
     height: 3.25rem;
     position: absolute;
     left: 50%;
-    top: 50%;
     margin-left: -1.625rem;
-    margin-top: -1.625rem;
+    margin-top: -7.875rem;
     display: block;
 }
 .radioPlayT{

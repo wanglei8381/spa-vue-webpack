@@ -58,14 +58,6 @@
                     window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client');
                 } else if (!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
                     window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.pianke.client&g_f=995016');
-                }else{
-                    var routerName = self.$route.name;
-                    var id = self.$route.params.id;
-                    if(routerName == 'radio'){
-                        window.open('http://pianke.me/ting/'+ id);
-                    }else{
-                        window.open('http://pianke.me/posts/'+ id)
-                    }
                 }
             }
         },
@@ -87,6 +79,7 @@
                         self.list = data.splice(0, 3);
                     }
                     var bLazy = new Blazy({
+
                     });
                 }
             });
